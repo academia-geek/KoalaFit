@@ -22,6 +22,7 @@
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.8",
     "formik": "^2.2.9",
+    "framer-motion": "^7.2.1",
     "jest-transformer-svg": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
