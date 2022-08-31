@@ -9,12 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
     "@material-tailwind/react": "^1.2.3",
-    "@mui/icons-material": "^5.10.3",
-    "@mui/material": "^5.10.3",
-    "@mui/styled-engine-sc": "^5.10.3",
     "axios": "^0.27.2",
     "env": "^0.0.2",
     "env-install": "^1.0.0",

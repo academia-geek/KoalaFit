@@ -1,8 +1,10 @@
 import React from 'react'
+import HomeMainContent from '../Components/HomeMainContent'
 
 const PaginaHome = () => {
   return (
-    <div>PaginaHome</div>
+    <div>
+    </div>
   )
 }
 

@@ -1,6 +1,5 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
-import Ejemplo from '../Components/Ejemplo'
+import { BrowserRouter,Routes, Route } from 'react-router-dom'
 import PaginaHome from '../Pages/PaginaHome'
 
 const AppRoutes = () => {
