@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import Ejemplo from '../Components/Ejemplo'
+import PaginaHome from '../Pages/PaginaHome'
 
 const AppRoutes = () => {
   return (
@@ -9,7 +10,7 @@ const AppRoutes = () => {
     <Route
           path="/"
           element={
-            <Ejemplo/>
+            <PaginaHome/>
           }
         />
     </Routes>
