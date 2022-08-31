@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 
 const HomeExperts = () => {
   return (
-    <div className="grid mx-auto container gap-5 justify-center items-center h-screen">
+    <div className="grid overflow-hidden mx-auto container gap-5 justify-center items-center h-screen">
       <motion.div
       initial={{x:-300}}
       whileInView={{x:0}}

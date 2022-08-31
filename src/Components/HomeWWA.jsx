@@ -4,7 +4,7 @@ import { motion } from "framer-motion"
 
 const HomeWWA = () => {
   return (
-    <div className="grid mx-auto container gap-5 lg:grid-cols-2 lg:items-center h-screen">
+    <div className="grid mx-auto container gap-5 lg:grid-cols-2 lg:items-center h-screen overflow-hidden">
       <img
         className="rounded-full max-h-md max-w-md w-1/2 h-1/2 mx-auto mt-10"
         src="https://res.cloudinary.com/dnont3pur/image/upload/v1661911272/DemoDay%20Temporaly%20Imgs/Koala_drwpvz.jpg"

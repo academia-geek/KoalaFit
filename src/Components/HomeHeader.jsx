@@ -1,7 +1,6 @@
-import { Avatar } from "@material-tailwind/react";
+
 import React from "react";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { Link } from 'react-scroll'
 import {
   Button,
