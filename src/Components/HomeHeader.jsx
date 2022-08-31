@@ -2,27 +2,45 @@ import { Avatar } from "@material-tailwind/react";
 import React from "react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import {Link} from 'react-scroll'
+import { Link } from 'react-scroll'
+import {
+  Button,
+} from "@material-tailwind/react";
 
 const HomeHeader = () => {
 
+  const [show, setShow] = useState('false')
+
+  const handleMenu = () =>{
+    setShow(!show)
+  }
+
   return (
-    <header className=" h-32 flex items-center px-56 justify-between">
-      <div className="h-24 flex items-center gap-2">
-        <img
-          src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661911176/Demdoay/WhatsApp_Image_2022-08-30_at_8.34.27_PM_bhvenw.jpg"
-          alt=""
-          className="h-full"
-        />
-        <p className="font-bold text-xl">Perritas Locas</p>
+    <header className=" lg:flex  2xl:px-20 lg:px-4  justify-between relative">
+      <div className="flex justify-between items-center px-6 py-4 ">
+        <div className="h-24 flex items-center gap-2">
+          <img
+            src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661911176/Demdoay/WhatsApp_Image_2022-08-30_at_8.34.27_PM_bhvenw.jpg"
+            alt=""
+            className="h-full rounded-full"
+          />
+          <p className="font-bold text-2xl text-primary">KoalaFit</p>
+        </div>
+        <div className="h-14 lg:hidden flex items-center" onClick={handleMenu}>
+          <img src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661971544/Demdoay/icons8-men%C3%BA-128_dswtpr.png" alt=""
+            className="h-full cursor-pointer"
+          />
+        </div>
       </div>
-      <ul className={"flex gap-10 font-bold items-center"} >
-        <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#home" >Home</Link></li>
-        <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#who" >Who We Are</Link></li>
-        <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#team" >Team</Link></li>
-        <li className="border-r-2 pr-8 py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"> <Link to="#contact" >Contact Us</Link></li>
-        <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"> <Link to="#register" >Register/Login</Link></li>
-      </ul>
+      <div className={`lg:flex lg:items-center lg:static rounded-br-2xl px-6 absolute bg-white transition-all  duration-500 ${show ? 'left-[-1000px]': 'left-0'} `}>
+        <ul className={"lg:flex gap-5 font-bold items-start py-4 px-6 float-right  flex flex-col lg:flex-row w-full pr-4 lg:items-center lg:gap-8 xl:gap-16 lg:justify-end "} >
+          <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#home" >Home</Link></li>
+          <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#who" >Who We Are</Link></li>
+          <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#team" >Team</Link></li>
+          <li className="lg:border-r-2 lg:pr-10 lg:py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-transform duration-300"><Link to="#contact" >Contact Us</Link></li>
+          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 "><Link to="#register" >Register/Login</Link></Button>
+        </ul>
+      </div>
     </header>
   );
 };
