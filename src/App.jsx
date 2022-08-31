@@ -5,9 +5,9 @@ function App() {
 
   return (
     <div>
-      <Provider store={store}>
-        <AppRoutes/>
-      </Provider>
+
+        <AppRoutes />
+
     </div>
   )
 }

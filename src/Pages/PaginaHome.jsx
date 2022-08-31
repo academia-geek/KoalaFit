@@ -1,8 +1,9 @@
 import React from 'react'
+import HomeWWA from '../Components/HomeWWA'
 
 const PaginaHome = () => {
   return (
-    <div>PaginaHome</div>
+    <HomeWWA />
   )
 }
 
