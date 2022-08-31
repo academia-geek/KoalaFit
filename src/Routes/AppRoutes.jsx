@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Ejemplo from '../Components/Ejemplo'
 import PaginaHome from '../Pages/PaginaHome'
 
