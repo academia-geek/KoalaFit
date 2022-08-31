@@ -1,9 +1,14 @@
 import React from 'react'
+import HomeExperts from '../Components/HomeExperts'
 import HomeWWA from '../Components/HomeWWA'
 
 const PaginaHome = () => {
   return (
-    <HomeWWA />
+    <div>
+      <HomeWWA />
+      <HomeExperts />
+    </div>
+    
   )
 }
 
