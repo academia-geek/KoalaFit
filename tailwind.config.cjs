@@ -8,22 +8,40 @@ module.exports = withMT({
   theme: {
     extend: {
       backgroundColor: {
-        mainBgColor: "#FCFCFC",
-        greyColor: "#EEEEEE",
-        primary: "#D93939",
-        secondary: "#333333",
+        mainBgColor: "#EFF9F6",
+        greyColor: "#A5C9BB",
+        textColor: "#B1B1B1",
+        primary: "#0FC185",
+        secondary: "#CDF9E8",
+        terciary: "#1EAB7B",
+        fourty: "#B3F0A5",
+        fifty: "#FF8FA8",
+        sixty: "#86BBEF",
+        seventy: "#D49A72"
       },
       textColor: {
-        mainBgColor: "#FCFCFC",
-        greyColor: "#EEEEEE",
-        primary: "#D93939",
-        secondary: "#333333",
+        mainBgColor: "#EFF9F6",
+        greyColor: "#A5C9BB",
+        textColor: "#B1B1B1",
+        primary: "#0FC185",
+        secondary: "#CDF9E8",
+        terciary: "#1EAB7B",
+        fourty: "#B3F0A5",
+        fifty: "#FF8FA8",
+        sixty: "#86BBEF",
+        seventy: "#D49A72"
       },
       colors: {
-        mainBgColor: "#FCFCFC",
-        greyColor: "#EEEEEE",
-        primary: "#D93939",
-        secondary: "#333333",
+        mainBgColor: "#EFF9F6",
+        greyColor: "#A5C9BB",
+        textColor: "#B1B1B1",
+        primary: "#0FC185",
+        secondary: "#CDF9E8",
+        terciary: "#1EAB7B",
+        fourty: "#B3F0A5",
+        fifty: "#FF8FA8",
+        sixty: "#86BBEF",
+        seventy: "#D49A72"
       },
       backgroundImage: {
         loginWaves: "url('../src/assets/img/wave.svg')",
