@@ -19,29 +19,50 @@ const HomeTestimonials = () => {
 
       <div className="grid h-full gap-5 lg:grid-cols-3 lg:mt-44 mt-10">
 
-        <div className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+        className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
             <p className="text-xs font-medium">La cabra, la cabra, la puta de la cabra, la madre que la parió. Yo tenía una cabra que se llamaba Asunción </p>
             <div className="flex items-center gap-8">
                 <img className="w-10 h-10 rounded-full" src="https://res.cloudinary.com/dnont3pur/image/upload/v1659122348/Workshop-2/noen_qc76za.jpg" alt="photo" />
                 <h1 className="font-bold">Cancion</h1>
             </div>
-        </div>
+        </motion.div>
 
-        <div className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+        className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
             <p className="text-xs font-medium">La cabra, la cabra, la puta de la cabra, la madre que la parió. Yo tenía una cabra que se llamaba Asunción </p>
             <div className="flex items-center gap-8">
                 <img className="w-10 h-10 rounded-full" src="https://res.cloudinary.com/dnont3pur/image/upload/v1659122348/Workshop-2/noen_qc76za.jpg" alt="photo" />
                 <h1 className="font-bold">Cancion</h1>
             </div>
-        </div>
+        </motion.div>
 
-        <div className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
+        <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+        className="border border-primary rounded-lg shadow-md shadow-primary max-w-xs h-44 flex flex-col gap-5 justify-center px-2 mx-auto">
             <p className="text-xs font-medium">La cabra, la cabra, la puta de la cabra, la madre que la parió. Yo tenía una cabra que se llamaba Asunción </p>
             <div className="flex items-center gap-8">
                 <img className="w-10 h-10 rounded-full" src="https://res.cloudinary.com/dnont3pur/image/upload/v1659122348/Workshop-2/noen_qc76za.jpg" alt="photo" />
                 <h1 className="font-bold">Cancion</h1>
             </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
