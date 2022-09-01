@@ -5,14 +5,21 @@ import { Link } from 'react-scroll'
 import {
   Button,
 } from "@material-tailwind/react";
+import { useContext } from "react";
+import { Context } from "../Context/ContextProvider";
 
 const HomeHeader = () => {
 
   const [show, setShow] = useState('false')
+  const {showModal, handleModal, showModal2,handleModal2} = useContext(Context)
 
   const handleMenu = () =>{
     setShow(!show)
   }
+
+//  let variante = document.querySelector('.login')
+
+//  (showModal2 ?  variante.disabled=true : variante.disabled=false)
 
   return (
     <header className=" lg:flex  2xl:px-20 mx-auto   justify-between sticky top-0 bg-white z-10 shadow-sm ">
@@ -37,7 +44,7 @@ const HomeHeader = () => {
           <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#who" >Who We Are</Link></li>
           <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#team" >Team</Link></li>
           <li className="lg:border-r-2 lg:pr-10 lg:py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-transform duration-300"><Link to="#contact" >Contact Us</Link></li>
-          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 "><Link to="#register" >Register/Login</Link></Button>
+          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={handleModal}>Login / Register</Button>
         </ul>
       </div>
     </header>
