@@ -17,10 +17,10 @@ const HomeHeader = () => {
     setShow(!show)
   }
   
-  useEffect(() =>{
-    let variante = document.querySelector('.login')
-    showModal2 ?  variante.disabled=true : variante.disabled=false
-  },[showModal2])
+  // useEffect(() =>{
+  //   let variante = document.querySelector('.login')
+  //   showModal2 ?  variante.disabled=true : variante.disabled=false
+  // },[showModal2])
  
 
   return (
