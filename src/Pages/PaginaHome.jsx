@@ -4,6 +4,7 @@ import HomeExperts from "../Components/HomeExperts";
 import HomeWWA from "../Components/HomeWWA";
 import HomeMainContent from "../Components/HomeMainContent";
 import { Context } from "../Context/ContextProvider";
+import Footer from "../Components/Footer";
 
 const PaginaHome = () => {
   const { showModal, handleModal, showModal2, handleModal2 } =
@@ -18,6 +19,7 @@ const PaginaHome = () => {
           <div className="bg-gradient-to-t from-mainBgColor via-white to-[#CDF9E8]">
             <HomeWWA />
             <HomeExperts />
+            <Footer/>
           </div>
         </>
       )}

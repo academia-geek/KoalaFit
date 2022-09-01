@@ -6,7 +6,7 @@ import imgHomeWWA_lg from "../assets/img/HomeWWA_lg.png";
 
 const HomeWWA = () => {
   return (
-    <div className="flex flex-col w-full max-w-7xl md:flex-row justify-center items-center h-screen overflow-hidden pt-6 mx-auto max-h-[760px]">
+    <div id="who" className="flex flex-col w-full max-w-7xl md:flex-row justify-center items-center h-screen overflow-hidden pt-6 mx-auto max-h-[760px]">
       <figure className="h-2/5 w-full md:w-1/2 md:h-full ">
         <picture>
           <source srcSet={imgHomeWWA_lg} media="(min-width: 720px)" />

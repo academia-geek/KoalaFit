@@ -7,7 +7,7 @@ import imgNuthelk from '../assets/img/imgNuthelk.png'
 
 const HomeExperts = () => {
   return (
-    <div className="flex flex-col w-full max-w-7xl px-5 justify-start items-center overflow-hidden mx-auto gap-6">
+    <div id='team' className="flex flex-col w-full max-w-7xl px-5 justify-start items-center overflow-hidden mx-auto gap-6">
       <motion.div
       initial={{x:-300}}
       whileInView={{x:0}}
