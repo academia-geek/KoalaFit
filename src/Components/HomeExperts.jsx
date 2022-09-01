@@ -17,6 +17,7 @@ const HomeExperts = () => {
         <div className="h-24 w-1 bg-primary"></div>
         <h1 className="text-xl font-bold">Expert Dietitians</h1>
       </motion.div>
+      {/* Comentario */}
       <motion.div 
       initial={{  scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
