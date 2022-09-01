@@ -5,22 +5,22 @@ import { Link } from 'react-scroll'
 import {
   Button,
 } from "@material-tailwind/react";
-import { useContext } from "react";
 import { Context } from "../Context/ContextProvider";
+import { useContext } from "react";
 
 const HomeHeader = () => {
 
   const [show, setShow] = useState('false')
-  const {showModal, handleModal, showModal2,handleModal2} = useContext(Context)
+  const { handleModal, showModal2,} = useContext(Context)
 
   const handleMenu = () =>{
     setShow(!show)
   }
   
-  // useEffect(() =>{
-  //   let variante = document.querySelector('.login')
-  //   showModal2 ?  variante.disabled=true : variante.disabled=false
-  // },[showModal2])
+  useEffect(() =>{
+    let variante = document.querySelector('.login')
+    showModal2 ?  variante.disabled=true : variante.disabled=false
+  },[showModal2])
  
 
   return (
