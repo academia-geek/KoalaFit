@@ -46,7 +46,7 @@ const HomeHeader = () => {
           <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#who" >Who We Are</Link></li>
           <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><Link to="#team" >Team</Link></li>
           <li className="lg:border-r-2 lg:pr-10 lg:py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-transform duration-300"><Link to="#contact" >Contact Us</Link></li>
-          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={handleModal}>Login / Register</Button>
+          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={() => handleModal()}>Login / Register</Button>
         </ul>
       </div>
     </header>
