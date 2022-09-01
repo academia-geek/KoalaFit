@@ -10,8 +10,17 @@ import {
 } from "@material-tailwind/react";
 import { motion } from "framer-motion"
 import { Context } from '../Context/ContextProvider';
+import { useDispatch } from 'react-redux';
+import { useForm } from '../Hooks/useForm';
+import { registerWithEmail } from "../Redux/Actions/userActions";
 
 const ModalSesionRegister = () => {
+    const dispatch = useDispatch();
+    const { formValue, handleInputChangeName, reset } = useForm({
+      email: "",
+      password: "",
+      name: ""
+    });
 
     const {showModal, handleModal, showModal2,handleModal2} = useContext(Context)
 
@@ -20,8 +29,23 @@ const ModalSesionRegister = () => {
         handleModal2()
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formValue);
+        dispatch(
+          registerWithEmail(
+            formValue.email,
+            formValue.password,
+            formValue.name
+          )
+        );
+        reset();
+      };
+
   return (
-    <motion.div className='absolute -top-36 max-h-max max-w-max shadow-[0px_0px_27px_-4px_rgba(0,0,0,0.75)] right-0 left-0 bottom-0 m-auto'
+    <motion.form 
+            onSubmit={handleSubmit}
+            className='absolute -top-36 max-h-max max-w-max shadow-[0px_0px_27px_-4px_rgba(0,0,0,0.75)] right-0 left-0 bottom-0 m-auto'
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{duration: 1, ease: [0, 0.71, 0.2, 1.01]}}
@@ -36,12 +60,12 @@ const ModalSesionRegister = () => {
                     </Typography>
                 </CardHeader>
                 <CardBody className="flex flex-col gap-4">
-                    <Input label="Name" size="lg" color='teal' className='focus:border-primary '/>
-                    <Input label="Email" size="lg" color='teal' className='focus:border-primary '/>
-                    <Input label="Password" size="lg" color='teal' className='focus:border-primary' type='password'/>
+                    <Input onChange={handleInputChangeName} label="Name" type="text" name='name' size="lg" color='teal' className='focus:border-primary '/>
+                    <Input onChange={handleInputChangeName} label="Email" type="email" name='email' size="lg" color='teal' className='focus:border-primary '/>
+                    <Input onChange={handleInputChangeName} label="Password" type="password" name='password' size="lg" color='teal' className='focus:border-primary'/>
                 </CardBody>
                 <CardFooter className="pt-0 text-center flex flex-col gap-4">
-                    <Button variant="filled" className='bg-primary hover:shadow-md hover:shadow-[#8fe0c5]' fullWidth>
+                    <Button variant="filled" type='submit' className='bg-primary hover:shadow-md hover:shadow-[#8fe0c5]' fullWidth>
                         Save Account
                     </Button>
                     <Button variant="filled" color='red' className='bg-red-400' fullWidth onClick={handlemodals}>
@@ -50,7 +74,7 @@ const ModalSesionRegister = () => {
 
                 </CardFooter>
             </Card>
-        </motion.div>
+        </motion.form>
   )
 }
 

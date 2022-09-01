@@ -5,11 +5,8 @@ import {
   } from "redux";
   import {
     userReducer
-  } from "../Reducers/userReducer";
-  import thunk from "redux-thunk";
-  import {
-    reducerNewWorkout
-  } from "../Reducers/reducerNewWorkout";
+  } from "../Reducers/userReducers";
+import thunk from "redux-thunk";
   
   const composeEnhancers =
     (typeof window !== "undefined" &&
@@ -17,8 +14,7 @@ import {
     compose;
   
   const reducers = combineReducers({
-    login: userReducer,
-    myWorkouts: reducerNewWorkout,
+    login: userReducer
   });
   
   export const store = createStore(
