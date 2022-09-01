@@ -9,8 +9,10 @@ const PaginaHome = () => {
     <div>
         <HomeHeader />
         <HomeMainContent />
+        <div className='bg-gradient-to-t from-mainBgColor via-white to-[#CDF9E8]'>
         <HomeWWA />
         <HomeExperts />
+        </div>
     </div>
   )
 }
