@@ -26,7 +26,7 @@ const HomeMainContent = () => {
         >
         <div className="flex w-11/12 flex-col h-full  items-center justify-start gap-8 md:flex-row max-w-7xl mx-auto ">
 
-          <section className=" flex flex-col items-start justify-start  h-1/2 w-11/12 gap-5 " >
+          <section className=" flex flex-col items-start md:justify-start  h-1/2 w-11/12 gap-5  justify-center " >
             <h1 className=" md:text-5xl text-2xl font-bold text-primary">Strong like a koala, competitive like a gamer</h1>
             <h2 className="text-greyColor w-full text-lg md:text-xl  ">Do It Smart</h2>
             <Button variant="filled" size="md" className=" bg-gradient-to-r from-primary to-terciary">

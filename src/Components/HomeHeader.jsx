@@ -1,12 +1,10 @@
 
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useState } from "react";
-import { Link } from 'react-scroll'
 import {
   Button,
 } from "@material-tailwind/react";
 import { Context } from "../Context/ContextProvider";
-import { useContext } from "react";
 
 const HomeHeader = () => {
 

@@ -23,9 +23,9 @@ const ContextProvider = ({children}) => {
         handleModal2,
     }
 
-  
+
     return <Context.Provider value={data}>{children}</Context.Provider>;
-  
+
 }
 
 export { ContextProvider, Context };
