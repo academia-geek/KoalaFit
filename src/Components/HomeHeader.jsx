@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from 'react-scroll'
 import {
@@ -16,10 +16,12 @@ const HomeHeader = () => {
   const handleMenu = () =>{
     setShow(!show)
   }
-
- let variante = document.querySelector('.login')
-
- showModal2 ?  variante.disabled=true : variante.disabled=false
+  
+  useEffect(() =>{
+    let variante = document.querySelector('.login')
+    showModal2 ?  variante.disabled=true : variante.disabled=false
+  },[showModal2])
+ 
 
   return (
     <header className=" lg:flex  2xl:px-20 lg:px-4  justify-between relative">
