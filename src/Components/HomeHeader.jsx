@@ -1,25 +1,27 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from 'react-scroll'
 import {
   Button,
 } from "@material-tailwind/react";
-import { useContext } from "react";
 import { Context } from "../Context/ContextProvider";
+import { useContext } from "react";
 
 const HomeHeader = () => {
 
   const [show, setShow] = useState('false')
-  const {showModal, handleModal, showModal2,handleModal2} = useContext(Context)
+  const { handleModal, showModal2,} = useContext(Context)
 
   const handleMenu = () =>{
     setShow(!show)
   }
 
-//  let variante = document.querySelector('.login')
+  useEffect(() =>{
+    let variante = document.querySelector('.login')
+    showModal2 ?  variante.disabled=true : variante.disabled=false
+  },[showModal2])
 
-//  (showModal2 ?  variante.disabled=true : variante.disabled=false)
 
   return (
     <header  className=" lg:flex  2xl:px-20 mx-auto  justify-between sticky top-0 bg-white z-10 shadow-sm ">
@@ -44,7 +46,7 @@ const HomeHeader = () => {
           <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><a href="#who" >Who We Are</a></li>
           <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><a href="#team" >Team</a></li>
           <li className="lg:border-r-2 lg:pr-10 lg:py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-transform duration-300"><a href="#contact" >Contact Us</a></li>
-          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={handleModal}>Login / Register</Button>
+          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={() => handleModal()}>Login / Register</Button>
         </ul>
       </div>
     </header>
