@@ -9,23 +9,28 @@ const ContextProvider = ({children}) => {
 
     const handleModal = () => {
         setShowModal(!showModal);
-      };
+    };
 
 
     const handleModal2 = () => {
         setShowModal2(!showModal2);
-      };
+    };
+
+    const showDrawer = () => {
+      setShowModal(!showModal)
+    }
 
     const data = {
         showModal,
         handleModal,
         showModal2,
         handleModal2,
+        showDrawer
     }
 
 
     return <Context.Provider value={data}>{children}</Context.Provider>;
-
+  
 }
 
 export { ContextProvider, Context };

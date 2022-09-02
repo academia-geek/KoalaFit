@@ -5,6 +5,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { Context } from "../Context/ContextProvider";
+import Logo from '../assets/img/Logo.png'
 
 const HomeHeader = () => {
 
@@ -26,8 +27,8 @@ const HomeHeader = () => {
       <div className="flex justify-between items-center px-6 py-4 ">
         <div className="h-24 flex items-center gap-2">
           <img
-            src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661911176/Demdoay/WhatsApp_Image_2022-08-30_at_8.34.27_PM_bhvenw.jpg"
-            alt=""
+            src={Logo}
+            alt="Logo"
             className="h-full rounded-full"
           />
           <p className="font-bold text-2xl text-primary">KoalaFit</p>

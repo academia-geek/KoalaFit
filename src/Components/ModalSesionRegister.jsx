@@ -47,7 +47,6 @@ const ModalSesionRegister = () => {
                     <Button variant="filled" color='red' className='bg-red-400' fullWidth onClick={handlemodals}>
                         Cancelar
                     </Button>
-
                 </CardFooter>
             </Card>
         </motion.div>
