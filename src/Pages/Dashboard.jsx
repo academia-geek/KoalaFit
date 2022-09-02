@@ -1,8 +1,11 @@
 import React from 'react'
+import DashboardProfile from '../Components/DashboardProfile'
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className=''>
+      <DashboardProfile/>
+    </div>
   )
 }
 
