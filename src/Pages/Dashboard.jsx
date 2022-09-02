@@ -1,10 +1,15 @@
-
+// import { DashboardMainContent } from "../Components/DashboardMainContent"
+import DashboardNavBar from "../Components/DashboardNavBar"
+import DashboardProfile from "../Components/DashboardProfile"
 
 const Dashboard = () => {
 
   return (
-    <div>
-    </div>
+    <>
+      <DashboardNavBar/>
+      <DashboardProfile/>
+      {/* <DashboardMainContent/> */}
+    </>
   )
 }
 

@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.4",
     "@material-tailwind/react": "^1.2.3",
     "@mui/icons-material": "^5.10.3",
+    "@chakra-ui/react": "^2.3.1",
     "@mui/material": "^5.10.3",
     "@mui/styled-engine-sc": "^5.10.3",
     "axios": "^0.27.2",
@@ -23,10 +24,11 @@
     "flowbite": "^1.5.2",
     "flowbite-react": "^0.1.8",
     "formik": "^2.2.9",
-    "framer-motion": "^7.2.1",
+    "framer-motion": "^6.5.1",
     "jest-transformer-svg": "^2.0.0",
     "react": "^18.2.0",
     "react-chartjs-2": "^4.3.1",
+    "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
@@ -38,6 +40,7 @@
     "sweetalert2": "^11.4.29",
     "sweetalert2-react-content": "^5.0.3",
     "vite-plugin-require": "^1.0.1",
+    "vuetify": "^2.6.9",
     "yup": "^0.32.11"
   },
   "devDependencies": {

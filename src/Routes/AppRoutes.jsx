@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Dashboard from '../Pages/Dashboard'
 import PaginaHome from '../Pages/PaginaHome'
-import Dashboard from '../Pages/Dashboard'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { PublicRouter } from './PublicRouter'
 import { PrivateRouter } from "./PrivateRouter";
@@ -43,12 +42,7 @@ const AppRoutes = () => {
             </PrivateRouter>   
           }
         />
-    <Route
-          path="/dashboard"
-          element={
-            <Dashboard/>
-          }
-        />
+    
     </Routes>
     </BrowserRouter>
   )
