@@ -9,11 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.0.9",
+    "@chakra-ui/react": "^2.3.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@material-tailwind/react": "^1.2.3",
     "@mui/icons-material": "^5.10.3",
-    "@chakra-ui/react": "^2.3.1",
     "@mui/material": "^5.10.3",
     "@mui/styled-engine-sc": "^5.10.3",
     "axios": "^0.27.2",
