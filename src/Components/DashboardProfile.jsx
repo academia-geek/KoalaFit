@@ -5,11 +5,9 @@ import "react-circular-progressbar/dist/styles.css";
 
 const DashboardProfile = () => {
   return (
-    <div className="bg-secondary w-full h-screen flex flex-col items-center pt-8 md:px-20 px-4 justify-around">
-      <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 min-w-min">
-        <div
-          className="h-8 shadow-none right-4 top-4 absolute cursor-pointer"
-        >
+    <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
+      <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">
+        <div className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
           <FiEdit color="#0FC185" size={20} />
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
@@ -77,7 +75,7 @@ const DashboardProfile = () => {
         </div>
       </div>
 
-      <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col rounded-3xl px-8 pb-8 pt-8 min-w-min">
+      <div className="bg-white shadow-md relative max-w-xs w-full flex flex-col rounded-3xl px-8 pb-8 pt-8 min-w-min">
       <div
           className="h-8 shadow-none right-4 top-4 absolute cursor-pointer"
         >
