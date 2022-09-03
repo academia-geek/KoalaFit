@@ -6,6 +6,7 @@ import HomeMainContent from "../Components/HomeMainContent";
 import { Context } from "../Context/ContextProvider";
 import HomeTestimonials from '../Components/HomeTestimonials'
 import Footer from "../Components/Footer";
+import HomeCarousel from "../Components/Carousel/HomeCarousel";
 
 const PaginaHome = () => {
   const { showModal, showModal2 } =
@@ -19,6 +20,7 @@ const PaginaHome = () => {
         <>
           <div className="bg-gradient-to-t from-mainBgColor via-white to-[#CDF9E8]">
             <HomeWWA />
+            <HomeCarousel />
             <HomeExperts />
             <HomeTestimonials />
             <Footer/>

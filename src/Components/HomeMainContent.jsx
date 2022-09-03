@@ -30,7 +30,7 @@ const HomeMainContent = () => {
             <h1 className=" md:text-5xl text-2xl font-bold text-primary">Strong like a koala, competitive like a gamer</h1>
             <h2 className="text-greyColor w-full text-lg md:text-xl  ">Do It Smart</h2>
             <Button variant="filled" size="md" className=" bg-gradient-to-r from-primary to-terciary">
-              Book Dietitions
+              <a href="#ejemplo">Book Dietitions</a> 
             </Button>
           </section>
           <figure className="md:h-5/6 h-1/2 w-11/12 " >
