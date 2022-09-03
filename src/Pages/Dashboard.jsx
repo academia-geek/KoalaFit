@@ -1,4 +1,6 @@
 import { DashboardMainContent } from "../Components/DashboardMainContent"
+// import { DashboardMainContent } from "../Components/DashboardMainContent"
+import DashboardHistory from "../Components/DashboardHistory"
 import DashboardNavBar from "../Components/DashboardNavBar"
 import DashboardProfile from "../Components/DashboardProfile"
 import DashboardRetos from "../Components/DashboardRetos";
@@ -32,7 +34,12 @@ const Dashboard = () => {
               <DashboardRetos />
             </div>
           :
+          switchDashboard === "3"
+           ?
           <DashboardRanking/>
+          :
+          <DashboardHistory />
+
       }
     </div>
   )
