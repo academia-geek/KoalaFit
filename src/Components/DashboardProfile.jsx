@@ -7,8 +7,8 @@ import 'react-circular-progressbar/dist/styles.css';
 
 const DashboardProfile = () => {
     return (
-        <div className='bg-secondary w-full h-screen flex flex-col items-center pt-8 md:px-20 px-4 justify-around' >
-            <div className='bg-white shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 min-w-min'>
+        <div className='flex flex-col items-center pt-8 justify-around gap-8 ' >
+            <div className='bg-white shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 '>
                 <div className='h-24 w-24 flex justify-center -mt-10'>
                     <img src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg" alt=""
                         className='h-full rounded-full object-cover'
