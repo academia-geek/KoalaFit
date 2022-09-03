@@ -8,6 +8,7 @@ import HomeTestimonials from '../Components/HomeTestimonials'
 import Footer from "../Components/Footer";
 import HomeCarousel from "../Components/Carousel/HomeCarousel";
 
+
 const PaginaHome = () => {
   const { showModal, showModal2 } =
     useContext(Context);
