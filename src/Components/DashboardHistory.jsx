@@ -30,9 +30,6 @@ const DashboardHistory = () => {
 
   return (
     <div className="divTable mx-auto mt-10 max-w-2xl justify-center text-center w-11/12 bg-fourty rounded-2xl">
-      <div>
-
-      </div>
       <TableContainer>
         <Table size="lg">
           <Thead>
