@@ -11,17 +11,40 @@ import {
     Input
 } from '@chakra-ui/react'
 import { Button } from '@chakra-ui/react'
+import { useForm } from '../Hooks/useForm';
+import { addDoc, collection } from 'firebase/firestore';
+import { db } from '../Firebase/firebaseConfig';
 
 const DashboardRetos = () => {
+    let datas=[];
+    const { formValue, handleInputChangeName, reset } = useForm({
+        name: "",
+        totalCalories: "",
+        totalTime: ""
+      });
+
+    const handleSubmit = async(e) => {
+        e.preventDefault();
+        const dt = new Date();
+        const data= {
+            name:formValue.name,
+            totalCalories: formValue.totalCalories,
+            totalTime: formValue.totalTime,
+            date:`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`
+        }
+
+        await addDoc(collection(db, "challenge"), data);
+        reset();
+    }
     return (
         <div className='flex flex-col lg:flex-row justify-around gap-10'>
             <div className='bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable'>
                 <h1 className='text-center mb-5 font-bold text-gray-800'>Add Challenge</h1>
-                <form action="" className='flex flex-col items-center'>
+                <form onSubmit={handleSubmit} className='flex flex-col items-center'>
                     <Stack spacing={5}>
-                        <Input focusBorderColor='teal.400' placeholder='Name' />
-                        <Input focusBorderColor='teal.400' placeholder='Total calories' />
-                        <Input focusBorderColor='teal.400' placeholder='Time' />
+                        <Input onChange={handleInputChangeName} name="name" focusBorderColor='teal.400' placeholder='Name' />
+                        <Input onChange={handleInputChangeName} name="totalCalories"  focusBorderColor='teal.400' placeholder='Total calories' />
+                        <Input onChange={handleInputChangeName} name="totalTime"  focusBorderColor='teal.400' placeholder='Time' />
                         <Button colorScheme='green' type='submit' className=''>Add</Button>
                     </Stack>
 
