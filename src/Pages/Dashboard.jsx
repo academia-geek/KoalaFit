@@ -18,7 +18,7 @@ const Dashboard = () => {
   }, [id])
 
   return (
-    <div className='bg-gradient-to-tr from-[#CDF9E8] to-transparent h-screen w-screen overflow-y-scroll lg:overflow-hidden'>
+    <div className='bg-gradient-to-tr from-[#CDF9E8] to-transparent h-screen w-screen overflow-y-scroll '>
       <DashboardNavBar />
       {
         switchDashboard === "1"
