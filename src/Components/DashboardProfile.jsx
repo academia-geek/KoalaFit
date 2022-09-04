@@ -54,7 +54,7 @@ const DashboardProfile = () => {
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
           <img
-            src={login ? initialDataUser.photo : login.photoURL }
+            src={login ?  login.photoURL : initialDataUser.photo }
             alt="Profile img"
             className="h-full rounded-full object-cover"
           />
