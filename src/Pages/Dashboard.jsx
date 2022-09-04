@@ -11,19 +11,24 @@ import { Context } from "../Context/ContextProvider";
 
 const Dashboard = () => {
   const { id } = useContext(Context)
-  const [switchDashboard, setSwitchDashboard] = useState(1)
+  const [switchDashboard, setSwitchDashboard] = useState('1')
 
   useEffect(() => {
     setSwitchDashboard(id)
   }, [id])
 
   return (
+<<<<<<< HEAD
     <div className='bg-gradient-to-tr from-[#CDF9E8] to-transparent h-screen w-screen overflow-y-scroll '>
+=======
+    <div className='bg-gradient-to-tr from-[#CDF9E8] to-transparent h-screen w-screen overflow-y-scroll'>
+
+>>>>>>> 7d85220f276c1981a4bed51953e9c38146216555
       <DashboardNavBar />
       {
         switchDashboard === "1"
           ?
-          <div className=' flex-col justify-around py-8  lg:flex-row items-center md:mt-[320px] mt-56 lg:mt-0  2xl:px-24 px-10 gap-24 flex '>
+          <div className=' flex-col justify-around py-8  lg:flex-row items-center lg:mt-0  2xl:px-24 px-10 gap-24 flex '>
             <DashboardProfile />
             <DashboardMainContent />
           </div>
@@ -38,7 +43,11 @@ const Dashboard = () => {
            ?
           <DashboardRanking/>
           :
+          switchDashboard === "4"
+          ?
           <DashboardHistory />
+          :
+          (setSwitchDashboard('1'))
 
       }
     </div>

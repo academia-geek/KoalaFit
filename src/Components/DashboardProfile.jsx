@@ -1,13 +1,40 @@
-import React from "react";
+import React, { useRef } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
+import {GiWeight,GiBodyHeight,GiStairsGoal} from 'react-icons/gi'
+import {BsFillLightningChargeFill} from 'react-icons/bs'
+import {IoIosWater} from 'react-icons/io'
+import { Formik } from 'formik';
+import {
+  useDisclosure,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Stack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
+
+const color = '#0FC185'
 
 const DashboardProfile = () => {
+  const modalAddWHG = useDisclosure();
+  const modalAddCal = useDisclosure();
+  const modalAddWater = useDisclosure();
+  const btnAddWHG = useRef(null);
+  const btnAddCal = useRef(null);
+  const btnAddWater = useRef(null);
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">
-        <div className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
+        <div onClick={modalAddWHG.onOpen} ref={btnAddWHG} className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
           <FiEdit color="#0FC185" size={20} />
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
@@ -40,6 +67,7 @@ const DashboardProfile = () => {
 
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col rounded-3xl px-8 pb-8 pt-8 min-w-min ">
       <div
+          onClick={modalAddCal.onOpen} ref={btnAddCal}
           className="h-8 shadow-none right-4 top-4 absolute cursor-pointer"
         >
           <FiEdit color="#0FC185" size={20} />
@@ -77,6 +105,7 @@ const DashboardProfile = () => {
 
       <div className="bg-white shadow-md relative max-w-xs w-full flex flex-col rounded-3xl px-8 pb-8 pt-8 min-w-min">
       <div
+          onClick={modalAddWater.onOpen} ref={btnAddCal}
           className="h-8 shadow-none right-4 top-4 absolute cursor-pointer"
         >
           <FiEdit color="#0FC185" size={20} />
@@ -101,6 +130,163 @@ const DashboardProfile = () => {
           </div>
         </div>
       </div>
+
+      {/* MODAL USER WEIGHT - HEIGHT - GOAL */}
+      <Modal
+          isOpen={modalAddWHG.isOpen}
+          onClose={modalAddWHG.onClose}
+          finalFocusRef={btnAddWHG}
+          initialFocusRef={btnAddWHG}
+          isCentered
+        >
+          <ModalOverlay />
+          <Formik
+            initialValues={{weight: '', height: '', goal: ''}}
+            onSubmit={(values => {
+              console.log(values);
+            })}
+          >
+            {({
+         values,
+         handleChange,
+         handleSubmit,
+       }) => (
+              <form onSubmit={handleSubmit}>
+          <ModalContent>
+            <ModalHeader>Enter your weight, height and goal</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <Stack spacing={4}>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<GiWeight color={color} />}
+                      />
+                    <Input type="number" name="weight" value={values.weight} onChange={handleChange} placeholder="Your weight in kg" />
+                  </InputGroup>
+
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<GiBodyHeight color={color} />}
+                    />
+                    <Input type="number" name="height" value={values.height} onChange={handleChange} placeholder="Your height in cm" />
+                  </InputGroup>
+
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<GiStairsGoal color={color} />}
+                    />
+                    <Input type="number" name="goal" value={values.goal} onChange={handleChange} placeholder="Your ideal weight goal" />
+                  </InputGroup>
+                </Stack>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="red" variant="ghost" mr={3} onClick={modalAddWHG.onClose}>
+                Close
+              </Button>
+              <Button colorScheme="green" type="submit" >Done</Button>
+            </ModalFooter>
+          </ModalContent>
+              </form>
+              )}
+          </Formik>
+      </Modal>
+      {/* MODAL GET CALORIES */}
+      <Modal
+          isOpen={modalAddCal.isOpen}
+          onClose={modalAddCal.onClose}
+          finalFocusRef={btnAddCal}
+          initialFocusRef={btnAddCal}
+        >
+          <ModalOverlay />
+          <Formik
+          initialValues={{calories: ''}}
+          onSubmit={(values => {
+            console.log(values);
+          })}>
+            {({
+         values,
+         handleChange,
+         handleSubmit,
+       }) => (
+
+              <form onSubmit={handleSubmit}>
+          <ModalContent>
+            <ModalHeader>How many calories have you consumed?</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <Stack spacing={4}>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<BsFillLightningChargeFill color={color} />}
+                      />
+                    <Input type="number" name="calories" value={values.calories} onChange={handleChange} placeholder="Calories consumed" />
+                  </InputGroup>
+                </Stack>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="red" variant="ghost" mr={3} onClick={modalAddCal.onClose}>
+                Close
+              </Button>
+              <Button colorScheme="green" type="submit" >Done</Button>
+            </ModalFooter>
+          </ModalContent>
+              </form>
+       )}
+          </Formik>
+      </Modal>
+      {/* MODAL GET WATER */}
+      <Modal
+          isOpen={modalAddWater.isOpen}
+          onClose={modalAddWater.onClose}
+          finalFocusRef={btnAddWater}
+          initialFocusRef={btnAddWater}
+        >
+          <ModalOverlay />
+          <Formik
+          initialValues={{water: ''}}
+          onSubmit={(values => {
+            console.log(values);
+          })}>
+            {({
+         values,
+         handleChange,
+         handleSubmit,
+       }) => (
+              <form onSubmit={handleSubmit}>
+          <ModalContent>
+            <ModalHeader>How many glasses of water have you consumed?</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+                <Stack spacing={4}>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents="none"
+                      children={<IoIosWater color={color} />}
+                      />
+                    <Input type="number" name="water" value={values.water} onChange={handleChange} placeholder="glasses of water consumed" />
+                  </InputGroup>
+                </Stack>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="red" variant="ghost" mr={3} onClick={modalAddWater.onClose}>
+                Close
+              </Button>
+              <Button colorScheme="green" type="submit" >Done</Button>
+            </ModalFooter>
+          </ModalContent>
+              </form>
+       )}
+       </Formik>
+      </Modal>
+
+
     </div>
   );
 };
