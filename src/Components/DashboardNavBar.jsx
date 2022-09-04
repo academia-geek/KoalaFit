@@ -1,8 +1,7 @@
 import { FaHistory } from 'react-icons/fa';
 import { AiOutlineTrophy,AiOutlineFire } from 'react-icons/ai';
 import { MdOutlineDashboard } from 'react-icons/md';
-import React, { useEffect, useContext, useState } from "react";
-import { BiUser } from 'react-icons/bi'
+import React, { useContext } from "react";
 import { RiDashboardLine } from 'react-icons/ri'
 import { IconButton } from "@material-tailwind/react";
 import { Context } from "../Context/ContextProvider";
@@ -21,7 +20,7 @@ import { getAuth } from 'firebase/auth';
 
 const DashboardNavBar = () => {
 
-  const { showDrawer, setId } = useContext(Context)
+  const { setId } = useContext(Context)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = React.useRef()
   const auth = getAuth()
@@ -47,9 +46,6 @@ const DashboardNavBar = () => {
 
           <IconButton variant="text" size="lg" className="h-8 lg: flex items-center shadow-none" onClick={onOpen} data-drawer-target="drawer-example" data-drawer-show="drawer-example" aria-controls="drawer-example">
             <RiDashboardLine color="#0FC185" size={32} />
-          </IconButton>
-          <IconButton variant="text" size="lg" className="h-8 lg:hidden flex items-center shadow-none" onClick={showDrawer}>
-            <BiUser color="#0FC185" size={32} />
           </IconButton>
         </div>
       </div>

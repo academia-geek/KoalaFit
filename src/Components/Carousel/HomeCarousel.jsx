@@ -24,7 +24,7 @@ const HomeCarousel = () => {
   };
 
   return (
-    <div id="ejemplo" className="container h-screen flex flex-col justify-start overflow-hidden px-5 gap-6">
+    <div id="ejemplo" className="container  h-[80vh] mx-auto w-full max-w-7xl  flex flex-col  overflow-hidden px-5 gap-6">
       <motion.div
       initial={{x:300}}
       whileInView={{x:0}}
@@ -32,19 +32,19 @@ const HomeCarousel = () => {
           duration: 1.5,
           ease: [0, 0.71, 0.2, 1.01]
         }}
-      className="flex w-full gap-10 items-end">
+      className="flex w-full gap-10 items-end ">
         <div className="h-24 w-1 bg-primary"></div>
         <h1 className="text-xl font-bold">Expert Dietitians</h1>
       </motion.div>
       <div
-        className="flex justify-center items-center"
+        className="flex w-full items-center justify-center"
       >
         <SimpleImageSlider
-          width={"60%"}
+          width={"100%"}
           height={450}
           autoPlay={true}
-          autoPlayDelay={2.0}
-          slideDuration={0.5}
+          autoPlayDelay={5.0}
+          slideDuration={1.5}
           bgColor={"#A5C9BB"}
           navStyle={2}
           onClick={handleOnClick}
