@@ -21,8 +21,19 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
 
 const color = '#0FC185'
+
+const initialDataUser = {
+  name: 'Name not found',
+  photo: 'https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg',
+  weight: 64,
+  heigh: '1.70',
+  goal: 58
+}
+
 
 const DashboardProfile = () => {
   const modalAddWHG = useDisclosure();
@@ -31,6 +42,10 @@ const DashboardProfile = () => {
   const btnAddWHG = useRef(null);
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
+
+  const login = useSelector(state => state.login)
+  console.log(login);
+
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">
@@ -39,28 +54,28 @@ const DashboardProfile = () => {
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
           <img
-            src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg"
-            alt=""
+            src={login ? initialDataUser.photo : login.photoURL }
+            alt="Profile img"
             className="h-full rounded-full object-cover"
           />
         </div>
         <div className="flex flex-col mt-4 text-center gap-2 border-b-2 w-[70%] pb-3">
-          <p className="font-bold">Cosplay de Ibai por Kevin</p>
+          <p className="font-bold">{login ? login.displayName : initialDataUser.name }</p>
           <p className="text-textColor">29 years, Medellin</p>
         </div>
 
         <div className="flex justify-around items-center pt-4 w-full">
           <div className="flex flex-col">
             <p className="text-primary text-sm">Weight</p>
-            <p className="text-lg font-semibold">64 kg</p>
+            <p className="text-lg font-semibold">{`${initialDataUser.weight} kg`}</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Height</p>
-            <p className="text-lg font-semibold">1,70 m</p>
+            <p className="text-lg font-semibold">{`${initialDataUser.heigh} m`}</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Goal</p>
-            <p className="text-orange-400 font-semibold">58 kg</p>
+            <p className="text-orange-400 font-semibold">{`${initialDataUser.goal} kg`}</p>
           </div>
         </div>
       </div>
@@ -143,6 +158,7 @@ const DashboardProfile = () => {
           <Formik
             initialValues={{weight: '', height: '', goal: ''}}
             onSubmit={(values => {
+              updateUserDataInFirestore(login.uid, values)
               console.log(values);
             })}
           >
@@ -205,6 +221,7 @@ const DashboardProfile = () => {
           <Formik
           initialValues={{calories: ''}}
           onSubmit={(values => {
+            updateUserDataInFirestore(login.uid, values)
             console.log(values);
           })}>
             {({
@@ -251,6 +268,7 @@ const DashboardProfile = () => {
           <Formik
           initialValues={{water: ''}}
           onSubmit={(values => {
+            updateUserDataInFirestore(login.uid, values)
             console.log(values);
           })}>
             {({

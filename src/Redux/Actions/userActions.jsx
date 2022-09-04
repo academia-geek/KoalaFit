@@ -14,6 +14,7 @@ import {
     facebook,
     google
   } from "../../Firebase/firebaseConfig";
+import { createUserInFirestore } from "../../helpers/createUserInFirestore";
 
   const loginSync = (user) => ({
     type: userTypes.login,
@@ -88,8 +89,11 @@ import {
               photoURL,
               uid
             }
-          }) =>
-          dispatch(loginProvider(displayName, email, photoURL, uid))
+          }) =>{
+            const userData = {displayName, email, photoURL, uid}
+            createUserInFirestore(uid,userData)
+            dispatch(loginProvider(displayName, email, photoURL, uid))
+          }
         )
         .catch((error) => {
           // Handle Errors here.
@@ -128,7 +132,11 @@ import {
               uid
             }
           }) =>
-          dispatch(loginProvider(displayName, email, photoURL, uid))
+          {
+            const userData = {displayName, email, photoURL, uid}
+            createUserInFirestore(uid,userData)
+            dispatch(loginProvider(displayName, email, photoURL, uid))
+          }
         )
         .catch((error) => {
           // Handle Errors here.

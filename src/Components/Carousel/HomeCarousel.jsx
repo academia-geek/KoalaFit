@@ -34,7 +34,7 @@ const HomeCarousel = () => {
         }}
       className="flex w-full gap-10 items-end ">
         <div className="h-24 w-1 bg-primary"></div>
-        <h1 className="text-xl font-bold">Expert Dietitians</h1>
+        <h1 className="text-2xl font-bold">Expert Dietitians</h1>
       </motion.div>
       <div
         className="flex w-full items-center justify-center"
