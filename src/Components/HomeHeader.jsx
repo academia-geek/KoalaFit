@@ -10,7 +10,7 @@ import Logo from '../assets/img/Logo.png'
 const HomeHeader = () => {
 
   const [show, setShow] = useState('false')
-  const { handleModal, showModal2,} = useContext(Context)
+  const { handleModal, showModal2} = useContext(Context)
 
   const handleMenu = () =>{
     setShow(!show)
@@ -45,7 +45,7 @@ const HomeHeader = () => {
           <li className="cursor-pointer  hover:text-primary hover:scale-110 transition-all duration-300"><a href="#who" >Who We Are</a></li>
           <li className="cursor-pointer hover:text-primary hover:scale-110 transition-all duration-300"><a href="#team" >Team</a></li>
           <li className="lg:border-r-2 lg:pr-10 lg:py-3 cursor-pointer  hover:text-primary hover:scale-110 transition-transform duration-300"><a href="#contact" >Contact Us</a></li>
-          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={() => handleModal()}>Login / Register</Button>
+          <Button className="bg-[#0FC185] hover:scale-110 transition-all duration-300 login" onClick={() => {handleModal(); handleMenu();}}>Login / Register</Button>
         </ul>
       </div>
     </header>

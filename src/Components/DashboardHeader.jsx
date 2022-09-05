@@ -7,7 +7,7 @@ const DashboardHeader = () => {
   return (
     <header className=' w-full max-w-7xl mx-auto h-40 flex items-center justify-center'>
         <div className='flex h-4/5 sm:h-2/3 bg-secondary rounded-3xl items-center justify-evenly relative w-11/12'>
-        <figure className='absolute left-[0%] hidden xl:block '>
+        <figure className='absolute left-[0%] hidden 4xl:block '>
             <img src={dashboardHeaderFitGirl} alt="" className='h-36' />
         </figure>
         <div className='w-2/5 sm:w-max'>

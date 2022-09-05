@@ -42,6 +42,9 @@ module.exports = withMT({
         sixty: "#86BBEF",
         seventy: "#D49A72"
       },
+      screens: {
+        '4xl': '1800px',
+      },
       backgroundImage: {
         WaveHome: "url('../src/assets/svg/WaveHome.svg')",
       },

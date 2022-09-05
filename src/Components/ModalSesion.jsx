@@ -35,7 +35,6 @@ const ModalSesion = () => {
     const handleFacebook = () => {
         dispatch(loginFacebook());
     };
-    
 
     const handleOnClick = (e) => {
         e.preventDefault();
@@ -46,7 +45,7 @@ const ModalSesion = () => {
     return (
         <motion.form
             onSubmit={handleOnClick}
-            className='absolute -top-36 max-h-max max-w-max shadow-[0px_0px_27px_-4px_rgba(0,0,0,0.75)] right-0 left-0 bottom-0 m-auto'
+            className='absolute -top-36 z-10 rounded-xl  max-h-max max-w-max shadow-[0px_0px_27px_-4px_rgba(0,0,0,0.75)] right-0 left-0 bottom-0 m-auto'
             initial={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{duration: 1, ease: [0, 0.71, 0.2, 1.01]}}
