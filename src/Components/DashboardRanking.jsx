@@ -16,7 +16,7 @@ import {
 
 const DashboardRanking = () => {
     return (
-        <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-20'>
+        <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-20 border mx-auto rounded-3xl shadow-lg bg-white w-11/12'>
             <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
 
                 <div className='flex flex-col items-center w-full'>
