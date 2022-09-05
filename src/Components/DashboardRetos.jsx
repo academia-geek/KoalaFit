@@ -12,13 +12,15 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useForm } from "../Hooks/useForm";
-import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 
 const DashboardRetos = () => {
-
+    const user = useSelector((state) => state.login)
+    const [aux, setAux] = useState(false)
     const [data, setData] = useState([]);
     const { formValue, handleInputChangeName, reset } = useForm({
         name: "",
@@ -29,39 +31,47 @@ const DashboardRetos = () => {
     useEffect(() => {
         const calldata = async () => {
             const challenges = await getDocs(collection(db, "challenge"));
-            let perrita = []
             
-            challenges.forEach((doc) => {
-               
-                perrita.push(doc.data())
-                   
-                
-                
+            challenges.forEach((doc, i = 0) => {
+                setData(doc.data().challenges)
             });
-           setData(perrita)
+            
         };
-        
+
         calldata();
-        // console.log(data)
-    }, [data]);
+      
+    }, [aux]);
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const uid = crypto.randomUUID();
-        const dt = new Date();
+        const uid = user.uid
         const datas = {
+
             name: formValue.name,
             totalCalories: formValue.totalCalories,
             totalTime: formValue.totalTime,
-            uid: uid
-        };
-        const vari = await setDoc(doc(db, 'challenge', uid), datas)
+            uid: crypto.randomUUID()
+
+        }
+
+        let challenges = (data != null ? data.concat(datas): datas)
+
+        const datas2 = {
+            challenges
+        }
        
+
+        const vari = await setDoc(doc(db, 'challenge', uid), datas2)
+        setAux(!aux)
+
     };
 
     const handleDelete = ({ target }) => {
+        const index = data.filter(e => e.uid !== target.id)
+        console.log(index)
+        // const array = [index]
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -77,20 +87,19 @@ const DashboardRetos = () => {
                     'Your file has been deleted.',
                     'success'
                 )
-                await deleteDoc(doc(db, "challenge", target.id));
-                const num = crypto.randomUUID();
-            
+                const retoDelete = doc(db, "challenge", user.uid);
+                await updateDoc(retoDelete, {
+                    challenges: index
+                })
+                setAux(!aux)
             }
         })
     }
 
-    const handlemesta = () => {
-        console.log(aux);
-    }
+
 
     return (
         <div className="flex flex-col lg:flex-row justify-around gap-10">
-            <button onClick={handlemesta}>Aqui</button>
             <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                 <h1 className="text-center mb-5 font-bold text-gray-800">
                     Add Challenge
@@ -135,20 +144,20 @@ const DashboardRetos = () => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {data &&
-                                data.map(({ name, totalCalories, totalTime, uid }, idx) => (
-                                    <Tr key={idx}>
-                                        <Td>{name}</Td>
-                                        <Td>{totalCalories}</Td>
-                                        <Td>{totalTime}</Td>
-                                        <Td>
-                                            <Button colorScheme="green">Go</Button>
-                                        </Td>
-                                        <Td>
-                                            <Button onClick={(e) => handleDelete(e)} id={uid} colorScheme="red">Delete</Button>
-                                        </Td>
-                                    </Tr>
-                                ))}
+                                {data &&
+                                    data.map(({ name, totalCalories, totalTime, uid }, idx) => (
+                                        <Tr key={idx} id={uid}>
+                                            <Td>{name}</Td>
+                                            <Td>{totalCalories}</Td>
+                                            <Td>{totalTime}</Td>
+                                            <Td>
+                                                <Button colorScheme="green">Go</Button>
+                                            </Td>
+                                            <Td>
+                                                <Button onClick={(e) => handleDelete(e)} id={uid} colorScheme="red">Delete</Button>
+                                            </Td>
+                                        </Tr>
+                                    ))}
                         </Tbody>
                     </Table>
                 </TableContainer>
