@@ -33,12 +33,13 @@ const HomeExperts = () => {
           <img
             className="w-full h-full object-cover "
             src={imgKevin}
+            title={'@ikevinmejia in GitHub'}
             alt="@ikevinmejia"
           />
           </figure>
           <div className="flex h-full items-center md:items-start justify-evenly w-3/5 flex-col gap-2 text-center">
             <div>
-            <h1 className="text-lg font-semibold">Nombre</h1>
+            <h1 className="text-lg font-semibold">Kevin  Mejia</h1>
             <p>React Developer</p>
             </div>
             <div>
@@ -52,12 +53,13 @@ const HomeExperts = () => {
           <img
             className="w-full h-full object-cover"
             src={imgKevin}
-            alt="@ikevinmejia"
+            alt="@Felipe852"
+            title={'@Felipe852 in GitHub'}
           />
           </figure>
           <div className="flex h-full items-center md:items-end justify-evenly w-3/5 flex-col gap-2 text-center">
             <div>
-            <h1 className="text-lg font-semibold">Nombre</h1>
+            <h1 className="text-lg font-semibold">Felipe Jaramillo</h1>
             <p>React Developer</p>
             </div>
             <div>
@@ -71,12 +73,13 @@ const HomeExperts = () => {
           <img
             className="w-full h-full object-cover"
             src={imgNuthelk}
-            alt="@ikevinmejia"
+            alt="@nuthelk"
+            title={'@nuthelk in GitHub'}
           />
           </figure>
           <div className="flex h-full items-center md:items-start justify-evenly w-3/5 flex-col gap-2 text-center">
             <div>
-            <h1 className="text-lg font-semibold">Nombre</h1>
+            <h1 className="text-lg font-semibold">Nuthelk Molina</h1>
             <p>React Developer</p>
             </div>
             <div>
