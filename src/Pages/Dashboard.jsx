@@ -1,21 +1,31 @@
 import { DashboardMainContent } from "../Components/DashboardMainContent"
-// import { DashboardMainContent } from "../Components/DashboardMainContent"
 import DashboardHistory from "../Components/DashboardHistory"
 import DashboardNavBar from "../Components/DashboardNavBar"
 import DashboardProfile from "../Components/DashboardProfile"
 import DashboardRetos from "../Components/DashboardRetos";
 import DashboardRanking from "../Components/DashboardRanking";
-import { handleBreakpoints } from "@mui/system";
 import React, { useContext, useState,useEffect } from "react";
 import { Context } from "../Context/ContextProvider";
+import { getAuth } from "firebase/auth";
 
-const Dashboard = () => {
+const Dashboard = ({dataUser}) => {
   const { id } = useContext(Context)
   const [switchDashboard, setSwitchDashboard] = useState('1')
+  
+
 
   useEffect(() => {
     setSwitchDashboard(id)
   }, [id])
+
+  useEffect(()=>{
+    const data = {
+      displayName: dataUser.displayName,
+    }
+    console.log(data)
+  },[dataUser.displayName])
+
+  
 
   return (
     <div className='bg-gradient-to-tr from-[#CDF9E8] to-transparent h-screen w-screen overflow-y-scroll'>

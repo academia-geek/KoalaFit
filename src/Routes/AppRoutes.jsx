@@ -5,18 +5,26 @@ import PaginaHome from '../Pages/PaginaHome'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { PublicRouter } from './PublicRouter'
 import { PrivateRouter } from "./PrivateRouter";
+import { db } from '../Firebase/firebaseConfig'
+import { doc, setDoc } from 'firebase/firestore'
 
 const AppRoutes = () => {
 
   const [auth, setAuth] = useState(false);
+  const [dataUser, setDataUser] = useState()
+
+  const registerUser = async(id,data) =>{
+    await setDoc(doc(db, "users", id), data);
+  }
+
 
   useEffect(() => {
     const auth2 = getAuth();
     onAuthStateChanged(auth2, (user) => {
       if (user?.uid) {
-        // console.log(user);
-        // Posibilidad de recuperar la info luego de que se recargue la web
+
         setAuth(true);
+        setDataUser(user)
       } else {
         setAuth(false);
       }
@@ -38,7 +46,7 @@ const AppRoutes = () => {
           path="/Dashboard"
           element={
             <PrivateRouter isAutentication={auth}>
-                 <Dashboard />
+                 <Dashboard  dataUser={dataUser}/>
             </PrivateRouter>   
           }
         />
