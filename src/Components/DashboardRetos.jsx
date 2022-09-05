@@ -14,14 +14,15 @@ import { Button } from "@chakra-ui/react";
 import { useForm } from "../Hooks/useForm";
 import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
-import { async } from "@firebase/util";
 import Swal from "sweetalert2";
+import ProgressTimer from "./ProgressTimer";
+
 
 
 const DashboardRetos = () => {
   const [aux, setAux] = useState(null)
   const [data, setData] = useState([]);
-  let datas = [];
+
   const { formValue, handleInputChangeName, reset } = useForm({
     name: "",
     totalCalories: "",
@@ -29,7 +30,7 @@ const DashboardRetos = () => {
   });
 
   useEffect(() => {
-    const calldata = async () => {
+   /*  const calldata = async () => {
       const challenges = await getDocs(collection(db, "challenge"));
       challenges.forEach((doc) => {
         if (data.length < 1) {
@@ -37,8 +38,8 @@ const DashboardRetos = () => {
         }
       });
     };
-    calldata();
-  }, [aux]);
+    calldata(); */
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -50,9 +51,8 @@ const DashboardRetos = () => {
       totalTime: formValue.totalTime,
       uid:uid
     };
-        const vari = await setDoc(doc(db, 'challenge', uid), datas)
-        setAux(vari)
-        console.log(vari);
+        await setDoc(doc(db, 'challenge', uid), datas)
+        setAux(uid)
   };
 
   const handleDelete = ({target}) =>{
@@ -72,20 +72,14 @@ const DashboardRetos = () => {
             'success'
           )
             await deleteDoc(doc(db, "challenge", target.id));
-            const num = crypto.randomUUID();
             setAux(target.id)
-            console.log(aux);
         }
       })
   }
 
-  const handlemesta = () => {
-    console.log(aux);
-  }
-
   return (
     <div className="flex flex-col lg:flex-row justify-around gap-10">
-        <button onClick={handlemesta}>Aqui</button>
+      {/* <ProgressTimer /> */}
       <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
         <h1 className="text-center mb-5 font-bold text-gray-800">
           Add Challenge
@@ -148,6 +142,7 @@ const DashboardRetos = () => {
           </Table>
         </TableContainer>
       </div>
+      
     </div>
   );
 };
