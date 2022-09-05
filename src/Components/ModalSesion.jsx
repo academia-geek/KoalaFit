@@ -45,7 +45,7 @@ const ModalSesion = () => {
 
     return (
         <motion.form
-            onSubmit={handleOnClick} 
+            onSubmit={handleOnClick}
             className='absolute -top-36 max-h-max max-w-max shadow-[0px_0px_27px_-4px_rgba(0,0,0,0.75)] right-0 left-0 bottom-0 m-auto'
             initial={{opacity: 0}}
             animate={{opacity: 1}}

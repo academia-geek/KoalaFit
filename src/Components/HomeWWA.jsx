@@ -28,7 +28,7 @@ const HomeWWA = () => {
       >
         <div className="flex w-full gap-10 items-end">
           <div className="h-24 w-1 bg-primary"></div>
-          <h1 className="text-xl font-bold">Who We Are</h1>
+          <h1 className="text-2xl font-bold">Who We Are</h1>
         </div>
         <div className="w-full flex">
           <Button

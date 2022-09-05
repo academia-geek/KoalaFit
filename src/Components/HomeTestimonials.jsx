@@ -15,7 +15,7 @@ const HomeTestimonials = () => {
         className="flex h-36 w-full gap-10 items-end pl-5 "
       >
         <div className="h-24 w-1 bg-primary"></div>
-        <h1 className="text-xl font-bold">Client Testimonials</h1>
+        <h1 className="text-2xl font-bold">Client Testimonials</h1>
       </motion.div>
 
       <div className="grid h-full gap-5 lg:grid-cols-3  mt-10">
