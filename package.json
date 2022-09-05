@@ -40,6 +40,7 @@
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.29",
     "sweetalert2-react-content": "^5.0.3",
+    "swiper": "^8.3.2",
     "vite-plugin-require": "^1.0.1",
     "vuetify": "^2.6.9",
     "yup": "^0.32.11"
@@ -51,6 +52,7 @@
     "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.8",
     "postcss": "^8.4.16",
+    "tailwind-scrollbar": "^2.0.1",
     "tailwindcss": "^3.1.8",
     "vite": "^3.0.7"
   }
