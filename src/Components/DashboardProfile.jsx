@@ -21,13 +21,8 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-<<<<<<< HEAD
-import { db } from "../Firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
-=======
 import { useSelector } from "react-redux";
 import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
->>>>>>> 753c642d5c0fcd1b768f28d19dddbcae8d642375
 
 const color = '#0FC185'
 
@@ -47,29 +42,9 @@ const DashboardProfile = () => {
   const btnAddWHG = useRef(null);
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
-<<<<<<< HEAD
-  const [prueba, setPrueba] = useState()
-
-
-  useEffect(()=>{
-    const registerUserDb = async() =>{
-      const usuarios = await getDocs(collection(db, "users"));
-      setPrueba(usuarios)
-      
-    }
-    registerUserDb()
-  },[])
-
-  useEffect(()=>{
-
-  },[])
-
-  
-=======
 
   const login = useSelector(state => state.login)
   console.log(login);
->>>>>>> 753c642d5c0fcd1b768f28d19dddbcae8d642375
 
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
