@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion"
 import imgKevin from '../assets/img/imgKevin.png'
 import imgNuthelk from '../assets/img/imgNuthelk.png'
+import imgFelipe from '../assets/img/imgFelipe.png'
 
 
 const HomeExperts = () => {
@@ -52,7 +53,7 @@ const HomeExperts = () => {
 
           <img
             className="w-full h-full object-cover"
-            src={imgKevin}
+            src={imgFelipe}
             alt="@Felipe852"
             title={'@Felipe852 in GitHub'}
           />
