@@ -20,7 +20,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
     type: userTypes.login,
     payload: user,
   });
-  
+
   export const registerWithEmail = (email, password, name, phoneNumber) => {
     return (dispatch) => {
       const auth = getAuth();
@@ -48,14 +48,14 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
         });
     };
   };
-  
+
   const registerSync = (user) => {
     return {
       type: userTypes.register,
       payload: user,
     };
   };
-  
+
   export const LoginWithEmail = (email, password) => {
     return (dispatch) => {
       const auth = getAuth();
@@ -77,7 +77,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
         .catch(() => console.log("Usuario o contraseña invalida"));
     };
   };
-  
+
   export const loginGoogle = () => {
     return (dispatch) => {
       const auth = getAuth();
@@ -107,7 +107,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
         });
     };
   };
-  
+
   export const loginProvider = (displayName, email, photoURL, uid) => {
     return {
       type: userTypes.login,
@@ -119,7 +119,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
       },
     };
   };
-  
+
   export const loginFacebook = () => {
     return (dispatch) => {
       const auth = getAuth();
@@ -151,4 +151,22 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
         });
     };
   };
-  
+
+  export const addWHG = (WHG) => {
+    return {
+      type: userTypes.addWHG,
+      payload: WHG
+    }
+  }
+  export const addWater = (water) => {
+    return {
+      type: userTypes.addWater,
+      payload: water
+    }
+  }
+  export const addCalories = (cal) => {
+    return {
+      type: userTypes.addCalories,
+      payload: cal
+    }
+  }

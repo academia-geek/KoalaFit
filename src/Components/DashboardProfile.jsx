@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
@@ -21,8 +21,13 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
+import { addCalories, addWater, addWHG } from "../Redux/Actions/userActions";
+import { updatedAlert } from "../helpers/alerts";
+import { calculateCal } from "../helpers/calculateCal";
+import { calculateWater } from "../helpers/calculateWater";
+
 
 const color = '#0FC185'
 
@@ -30,8 +35,11 @@ const initialDataUser = {
   name: 'Name not found',
   photo: 'https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg',
   weight: 64,
-  heigh: '1.70',
-  goal: 58
+  height: '1.70',
+  goal: 58,
+  calorieGoal: 500,
+  calorieBurned: 0,
+  water: 0,
 }
 
 
@@ -42,8 +50,11 @@ const DashboardProfile = () => {
   const btnAddWHG = useRef(null);
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
+  const [calCounter, setCalCounter] = useState(0)
+  const [waterCounter, setWaterCounter] = useState(0)
 
   const login = useSelector(state => state.login)
+  const dispatch = useDispatch()
   console.log(login);
 
   return (
@@ -67,15 +78,15 @@ const DashboardProfile = () => {
         <div className="flex justify-around items-center pt-4 w-full">
           <div className="flex flex-col">
             <p className="text-primary text-sm">Weight</p>
-            <p className="text-lg font-semibold">{`${initialDataUser.weight} kg`}</p>
+            <p className="text-lg font-semibold">{login.whg ? login.whg.weight : initialDataUser.weight } kg</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Height</p>
-            <p className="text-lg font-semibold">{`${initialDataUser.heigh} m`}</p>
+            <p className="text-lg font-semibold">{login.whg ? login.whg.height : initialDataUser.height } m</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Goal</p>
-            <p className="text-orange-400 font-semibold">{`${initialDataUser.goal} kg`}</p>
+            <p className="text-orange-400 font-semibold">{login.whg ? login.whg.goal : initialDataUser.goal } kg</p>
           </div>
         </div>
       </div>
@@ -87,12 +98,12 @@ const DashboardProfile = () => {
         >
           <FiEdit color="#0FC185" size={20} />
         </div>
-        <p className="">Calorie Counter</p>
+        <p className="font-semibold">Calorie Counter</p>
         <div className="flex justify-between items-center">
           <div>
             <div className="mt-6">
-              <p className="text-textColor">Eaten</p>
-              <p>1230 kcal</p>
+              <p className="text-textColor">Goal</p>
+              <p>{login.calories ? login.calories.calories : initialDataUser.calorieGoal } kcal</p>
             </div>
 
             <div className="mt-6">
@@ -102,15 +113,16 @@ const DashboardProfile = () => {
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">
             <CircularProgressbar
-              value={40}
-              text={"40%"}
+              value={calCounter}
+              text={`${calCounter} %`}
+
               styles={buildStyles({
                 trailColor: "#d6d6d6",
                 pathColor: "#0FC185",
                 textColor: "#0FC185",
               })}
             />
-            Kcal left
+            Kcal burned
           </div>
         </div>
         <div className="flex justify-around">
@@ -127,15 +139,15 @@ const DashboardProfile = () => {
         </div>
         <div className="flex justify-between items-center">
           <div>
-            <p>Drunk</p>
-            <p>
-              1910 ml / <span className="text-textColor">3000 ml</span>
+            <p className="font-semibold">Drunk</p>
+            <p className="flex flex-col">
+              {waterCounter * 20}{''} ml / <span className="text-textColor">2000 ml</span>
             </p>
           </div>
           <div className="h-24 w-24">
             <CircularProgressbar
-              value={20}
-              text={"20%"}
+              value={waterCounter}
+              text={`${waterCounter} %`}
               styles={buildStyles({
                 trailColor: "#d6d6d6",
                 pathColor: "#0FC185",
@@ -159,6 +171,9 @@ const DashboardProfile = () => {
             initialValues={{weight: '', height: '', goal: ''}}
             onSubmit={(values => {
               updateUserDataInFirestore(login.uid, values)
+              dispatch(addWHG(values))
+              modalAddWHG.onClose()
+              updatedAlert()
               console.log(values);
             })}
           >
@@ -222,6 +237,10 @@ const DashboardProfile = () => {
           initialValues={{calories: ''}}
           onSubmit={(values => {
             updateUserDataInFirestore(login.uid, values)
+            dispatch(addCalories(values))
+            modalAddCal.onClose()
+            calculateCal(setCalCounter, 300, values.calories)
+            updatedAlert()
             console.log(values);
           })}>
             {({
@@ -232,7 +251,7 @@ const DashboardProfile = () => {
 
               <form onSubmit={handleSubmit}>
           <ModalContent>
-            <ModalHeader>How many calories have you consumed?</ModalHeader>
+            <ModalHeader>Calorie Burn Goal</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
                 <Stack spacing={4}>
@@ -241,7 +260,7 @@ const DashboardProfile = () => {
                       pointerEvents="none"
                       children={<BsFillLightningChargeFill color={color} />}
                       />
-                    <Input type="number" name="calories" value={values.calories} onChange={handleChange} placeholder="Calories consumed" />
+                    <Input type="number" name="calories" value={values.calories} onChange={handleChange} placeholder="Calorie goal" />
                   </InputGroup>
                 </Stack>
             </ModalBody>
@@ -269,6 +288,11 @@ const DashboardProfile = () => {
           initialValues={{water: ''}}
           onSubmit={(values => {
             updateUserDataInFirestore(login.uid, values)
+            dispatch(addWater(values))
+            calculateWater(setWaterCounter, 2000, values.water)
+            modalAddWater.onClose()
+            updatedAlert()
+
             console.log(values);
           })}>
             {({

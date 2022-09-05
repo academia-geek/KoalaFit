@@ -5,6 +5,7 @@ import React, { useContext } from "react";
 import { RiDashboardLine } from 'react-icons/ri'
 import { IconButton } from "@material-tailwind/react";
 import { Context } from "../Context/ContextProvider";
+import Logo from '../assets/img/Logo.png'
 import {
   Drawer,
   DrawerBody,
@@ -36,7 +37,7 @@ const DashboardNavBar = () => {
       <div className="flex justify-between items-center px-6 py-2 ">
         <div className="h-12 flex items-center gap-2">
           <img
-            src="https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661911176/Demdoay/WhatsApp_Image_2022-08-30_at_8.34.27_PM_bhvenw.jpg"
+            src={Logo}
             alt="Logo KoalaFit"
             className="h-full rounded-full"
           />
