@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
@@ -21,6 +21,8 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
+import { db } from "../Firebase/firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 
 const color = '#0FC185'
 
@@ -31,6 +33,24 @@ const DashboardProfile = () => {
   const btnAddWHG = useRef(null);
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
+  const [prueba, setPrueba] = useState()
+
+
+  useEffect(()=>{
+    const registerUserDb = async() =>{
+      const usuarios = await getDocs(collection(db, "users"));
+      setPrueba(usuarios)
+      
+    }
+    registerUserDb()
+  },[])
+
+  useEffect(()=>{
+
+  },[])
+
+  
+
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">

@@ -20,21 +20,19 @@ import {
     payload: user,
   });
   
-  export const registerWithEmail = (email, password, name, phoneNumber) => {
+  export const registerWithEmail = (email, password, displayName) => {
     return (dispatch) => {
       const auth = getAuth();
-      console.log(auth);
-      createUserWithEmailAndPassword(auth, email, password, phoneNumber)
-        .then(async () => {
+      createUserWithEmailAndPassword(auth, email, password, displayName)
+        .then( async () => {
           await updateProfile(auth.currentUser, {
-            displayName: name,
+            displayName
           });
           dispatch(
             registerSync({
               email,
               password,
-              name,
-              phoneNumber,
+              displayName,
               uid: auth.currentUser.uid,
             })
           );
