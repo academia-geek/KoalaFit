@@ -22,7 +22,6 @@ const Dashboard = ({dataUser}) => {
     const data = {
       displayName: dataUser.displayName,
     }
-    console.log(data)
   },[dataUser.displayName])
 
   

@@ -22,8 +22,9 @@ const AppRoutes = () => {
     const auth2 = getAuth();
     onAuthStateChanged(auth2, (user) => {
       if (user?.uid) {
-
+        
         setAuth(true);
+        localStorage.setItem("idUserLogin", user.uid)
         setDataUser(user)
       } else {
         setAuth(false);

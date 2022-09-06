@@ -4,7 +4,7 @@ import HomeTestimonialsCards from "./HomeTestimonialsCards";
 
 const HomeTestimonials = () => {
   return (
-    <div className=" h-full mx-auto container ">
+    <div className=" h-full mx-auto container overflow-hidden ">
       <motion.div
         initial={{ x: 100 }}
         whileInView={{ x: 0 }}
