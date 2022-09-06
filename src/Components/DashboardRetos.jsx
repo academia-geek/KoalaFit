@@ -87,7 +87,7 @@ const DashboardRetos = () => {
 
     return (
         <div className="flex flex-col lg:flex-row justify-around gap-10">
-            <ProgressTimer countdownTimestampMs ={70} />
+            <ProgressTimer countdownTimestampMs ={30} />
             <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                 <h1 className="text-center mb-5 font-bold text-gray-800">
                     Add Challenge
