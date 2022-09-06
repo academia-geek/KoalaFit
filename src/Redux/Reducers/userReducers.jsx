@@ -34,7 +34,7 @@ import {
       case userTypes.addEditInfoUser:
         return {
           displayName: action.payload.displayName,
-          photoUrl: action.payload.img,
+          photoURL: action.payload.photoURL,
           age: action.payload.age,
           city: action.payload.city,
         }

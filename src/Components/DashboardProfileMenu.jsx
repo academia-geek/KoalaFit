@@ -46,11 +46,10 @@ const DashboardProfileMenu = () => {
     const widget_cloudinary = cloudinary.createUploadWidget({
         cloudName: 'ikevinmejia',
         uploadPreset: 'v3uthz1p'
-      }, async (error, result) => {
+      }, (error, result) => {
         if (!error && result && result.event === "success") {
           console.log('Done! Here is the image info: ', result.info);
-          const urlImgCloudinary = await result.info.secure_url
-          setUserImg(urlImgCloudinary)
+          setUserImg(result.info.secure_url)
         }
       })
 
@@ -185,12 +184,11 @@ const DashboardProfileMenu = () => {
         <Formik
           initialValues={{ displayName: "", age: "", city: ""}}
           onSubmit={(values) => {
-            values.img = userImg;
+            values.photoURL = userImg;
             updateUserDataInFirestore(login.uid, values);
             dispatch(addEditInfoUser(values));
             modalEditUser.onClose();
             updatedAlert();
-            console.log(login);
           }}
         >
           {({ values, handleChange, handleSubmit }) => (
@@ -248,7 +246,7 @@ const DashboardProfileMenu = () => {
                       />
                       <Input
                         type="button"
-                        name="img"
+                        name="photoURL"
                         value={'Select a file'}
                         onChange={handleChange}
                         onClick={() => handleCloudinary()}

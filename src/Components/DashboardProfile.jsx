@@ -55,7 +55,7 @@ const DashboardProfile = () => {
 
   const login = useSelector(state => state.login)
   const dispatch = useDispatch()
-  console.log(login);
+  console.log(login.photoURL);
 
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
