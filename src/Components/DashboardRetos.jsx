@@ -42,7 +42,6 @@ const DashboardRetos = () => {
     });
 
     useEffect(() => {
-        let num = crypto.randomUUID();
         const calldata = async () => {
             const prueba =  doc(db, "challenge", idUser)
             const prueba2 = await getDoc(prueba)
@@ -52,7 +51,6 @@ const DashboardRetos = () => {
         calldata();
         
     }, [aux]);
-
 
 
     const handleSubmit = async (e) => {
