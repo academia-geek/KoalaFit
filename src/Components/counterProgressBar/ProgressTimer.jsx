@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const ProgressTimer = ({countdownTimestampMs}) => {
+  const navigate = useNavigate()
   let seg = 0;
   let calcSeg=0;
   let min = 0;
@@ -37,6 +39,7 @@ const ProgressTimer = ({countdownTimestampMs}) => {
         'You clicked the button!',
         'success'
         )
+        navigate("/Dashboard")
       }
     }
   }
