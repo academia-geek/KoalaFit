@@ -2,7 +2,10 @@ import React, { useRef, useState } from "react";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { CgAddR } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
-import { MdOutlineDelete } from "react-icons/md";
+import { FaRegFileImage } from "react-icons/fa";
+import { GiBodyHeight, GiStairsGoal, GiWeight } from "react-icons/gi";
+import { IoCalendarNumberOutline, IoLocationSharp } from "react-icons/io5";
+import { MdOutlineDelete, MdDriveFileRenameOutline } from "react-icons/md";
 import {
   Menu,
   MenuButton,
@@ -25,7 +28,6 @@ import {
 } from "@chakra-ui/react";
 import { doc, deleteDoc } from "firebase/firestore";
 import { Formik } from "formik";
-import { GiBodyHeight, GiStairsGoal, GiWeight } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { addEditInfoUser, addWHG } from "../Redux/Actions/userActions";
 import { updatedAlert } from "../helpers/alerts";
@@ -237,7 +239,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiWeight color={color} />}
+                        children={<MdDriveFileRenameOutline color={color} />}
                       />
                       <Input
                         type="text"
@@ -251,7 +253,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiBodyHeight color={color} />}
+                        children={<IoCalendarNumberOutline color={color} />}
                       />
                       <Input
                         type="number"
@@ -265,7 +267,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiStairsGoal color={color} />}
+                        children={<IoLocationSharp color={color} />}
                       />
                       <Input
                         type="text"
@@ -278,7 +280,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiStairsGoal color={color} />}
+                        children={<FaRegFileImage color={color} />}
                       />
                       <Input
                         type="button"

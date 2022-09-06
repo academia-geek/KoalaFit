@@ -36,6 +36,7 @@
     "react-scroll": "^1.8.7",
     "react-simple-image-slider": "^2.4.1",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
     "sweetalert2": "^11.4.29",
