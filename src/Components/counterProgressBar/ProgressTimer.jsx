@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import Swal from "sweetalert2";
 
 const ProgressTimer = ({countdownTimestampMs}) => {
   let seg = 0;
+  let calcSeg=0;
   let min = 0;
 
   const [segs, setSegs] = useState(0)
+  const [totalSegs, setTotalSegs] = useState(0)
   const [mins, setMins] = useState(0)
-  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(()=>{
-        updateRemainingTime(countdownTimestampMs);
+        updateRemainingTime();
     },1000);
     return () => clearTimeout(intervalId)
   }, [countdownTimestampMs])
@@ -19,25 +21,32 @@ const ProgressTimer = ({countdownTimestampMs}) => {
 
   function updateRemainingTime(){
     seg = seg + 1;
-    setSegs(seg)
-    
-    if(seg>=60){
-      min = min + 1;
-      seg = 0;
+    calcSeg=calcSeg + 1;
+    if(seg <= countdownTimestampMs){
       setSegs(seg)
+      if(calcSeg>=60){
+        min = min + 1;
+        calcSeg = 0 ;
+      }
       setMins(min)
-      setTotal(seg * min)
+      setTotalSegs(calcSeg)
     }else{
-      setTotal(seg)
+      if(calcSeg - 1 === countdownTimestampMs){
+        Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+        )
+      }
     }
-    
   }
 
   return (
     <div>
       <CircularProgressbar
-        value={total}
-        text={`${mins}:${segs}`}
+        value={segs}
+        maxValue={countdownTimestampMs}
+        text={`${mins}:${totalSegs}`}
         styles={buildStyles({
           trailColor: "#d6d6d6",
           pathColor: "#0FC185",
