@@ -21,6 +21,7 @@ import ProgressTimer from "./counterProgressBar/ProgressTimer";
 
 const DashboardRetos = () => {
     const user = useSelector((state) => state.login)
+    const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
     const [data, setData] = useState([]);
     const { formValue, handleInputChangeName, reset } = useForm({
@@ -32,7 +33,7 @@ const DashboardRetos = () => {
     useEffect(() => {
         let num = crypto.randomUUID();
         const calldata = async () => {
-            const prueba =  doc(db, "challenge", user.uid)
+            const prueba =  doc(db, "challenge", idUser)
             const prueba2 = await getDoc(prueba)
             setData(prueba2.data().challenges)
         };
@@ -45,7 +46,7 @@ const DashboardRetos = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const uid = user.uid
+        const uid = idUser
         const datas = {
 
             name: formValue.name,
@@ -86,7 +87,7 @@ const DashboardRetos = () => {
                     'Your file has been deleted.',
                     'success'
                 )
-                const retoDelete = doc(db, "challenge", user.uid);
+                const retoDelete = doc(db, "challenge", idUser);
                 await updateDoc(retoDelete, {
                     challenges: index
                 })
