@@ -6,17 +6,15 @@ const ProgressTimer = ({countdownTimestampMs}) => {
   let seg = 0;
   let calcSeg=0;
   let min = 0;
-  const [intervalTime, setIntervalTime]= useState(1000)
 
   const [segs, setSegs] = useState(0)
   const [totalSegs, setTotalSegs] = useState(0)
   const [mins, setMins] = useState(0)
-  const [total, setTotal] = useState(0)
 
   useEffect(() => {
     const intervalId = setInterval(()=>{
         updateRemainingTime();
-    },intervalTime);
+    },1000);
     return () => clearTimeout(intervalId)
   }, [countdownTimestampMs])
   
@@ -33,34 +31,14 @@ const ProgressTimer = ({countdownTimestampMs}) => {
       setMins(min)
       setTotalSegs(calcSeg)
     }else{
-      Swal.fire(
+      if(calcSeg - 1 === countdownTimestampMs){
+        Swal.fire(
         'Good job!',
         'You clicked the button!',
         'success'
-      )
-      setIntervalTime(0)
+        )
+      }
     }
-    /* if(countdownTimestampMs >= segs*mins){
-      if(seg>=60){
-            min = min + 1;
-            seg = 0;
-            setSegs(seg)
-            setMins(min)
-            setTotal(seg * min)
-          }else{
-            setSegs(seg)
-            if(min<=0){
-              setTotal(seg*1)
-            }else{
-              setTotal(seg*min)
-            }
-            
-          }
-    }else{
-      console.log("Se completo");
-    } */
-    
-    
   }
 
   return (
