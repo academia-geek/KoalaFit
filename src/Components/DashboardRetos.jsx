@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useForm } from "../Hooks/useForm";
-import { collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
@@ -32,15 +32,13 @@ const DashboardRetos = () => {
     useEffect(() => {
         let num = crypto.randomUUID();
         const calldata = async () => {
-            const challenges = await getDocs(collection(db, "challenge"));
-
-            challenges.forEach((doc, i = 0) => {
-                setData(doc.data().challenges)
-            });
-
+            const prueba =  doc(db, "challenge", user.uid)
+            const prueba2 = await getDoc(prueba)
+            setData(prueba2.data().challenges)
         };
 
         calldata();
+        
     }, [aux]);
 
 
@@ -58,11 +56,11 @@ const DashboardRetos = () => {
         }
 
         let challenges = (data != null ? data.concat(datas): datas)
-
-        const datas2 = {
+        
+        const datas2 = { 
             challenges
         }
-       
+        
 
         const vari = await setDoc(doc(db, 'challenge', uid), datas2)
         setAux(!aux)
