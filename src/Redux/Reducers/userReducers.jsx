@@ -31,6 +31,13 @@ import {
           ...state,
           water: {...state.water,...action.payload}
         }
+      case userTypes.addEditInfoUser:
+        return {
+          displayName: action.payload.displayName,
+          photoUrl: action.payload.img,
+          age: action.payload.age,
+          city: action.payload.city,
+        }
 
       default:
         return state;

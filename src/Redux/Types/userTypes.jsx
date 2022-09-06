@@ -4,4 +4,5 @@ export const userTypes = {
     addWHG: "[USER] addWHG",
     addCalories: "[USER] addCalories",
     addWater: "[USER] addWater",
+    addEditInfoUser: "[USER] addEditInfoUser",
   };

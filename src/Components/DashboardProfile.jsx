@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
@@ -27,10 +27,10 @@ import { addCalories, addWater, addWHG } from "../Redux/Actions/userActions";
 import { updatedAlert } from "../helpers/alerts";
 import { calculateCal } from "../helpers/calculateCal";
 import { calculateWater } from "../helpers/calculateWater";
+import DashboardProfileMenu from "./DashboardProfileMenu";
 
 
 const color = '#0FC185'
-
 const initialDataUser = {
   name: 'Name not found',
   photo: 'https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg',
@@ -40,14 +40,14 @@ const initialDataUser = {
   calorieGoal: 500,
   calorieBurned: 0,
   water: 0,
+  city: 'EEUU',
+  age: 20,
 }
 
 
 const DashboardProfile = () => {
-  const modalAddWHG = useDisclosure();
   const modalAddCal = useDisclosure();
   const modalAddWater = useDisclosure();
-  const btnAddWHG = useRef(null);
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
   const [calCounter, setCalCounter] = useState(0)
@@ -60,19 +60,19 @@ const DashboardProfile = () => {
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">
-        <div onClick={modalAddWHG.onOpen} ref={btnAddWHG} className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
-          <FiEdit color="#0FC185" size={20} />
+        <div className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
+          <DashboardProfileMenu/>
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
           <img
-            src={login ?  login.photoURL : initialDataUser.photo }
+            src={login.photoURL ?  login.photoURL : initialDataUser.photo }
             alt="Profile img"
             className="h-full rounded-full object-cover"
           />
         </div>
         <div className="flex flex-col mt-4 text-center gap-2 border-b-2 w-[70%] pb-3">
           <p className="font-bold">{login ? login.displayName : initialDataUser.name }</p>
-          <p className="text-textColor">29 years, Medellin</p>
+          <p className="text-textColor">{login.age ? login.age : initialDataUser.age} years, {login.city ? login.city : initialDataUser.city}</p>
         </div>
 
         <div className="flex justify-around items-center pt-4 w-full">
@@ -158,73 +158,7 @@ const DashboardProfile = () => {
         </div>
       </div>
 
-      {/* MODAL USER WEIGHT - HEIGHT - GOAL */}
-      <Modal
-          isOpen={modalAddWHG.isOpen}
-          onClose={modalAddWHG.onClose}
-          finalFocusRef={btnAddWHG}
-          initialFocusRef={btnAddWHG}
-          isCentered
-        >
-          <ModalOverlay />
-          <Formik
-            initialValues={{weight: '', height: '', goal: ''}}
-            onSubmit={(values => {
-              updateUserDataInFirestore(login.uid, values)
-              dispatch(addWHG(values))
-              modalAddWHG.onClose()
-              updatedAlert()
-              console.log(values);
-            })}
-          >
-            {({
-         values,
-         handleChange,
-         handleSubmit,
-       }) => (
-              <form onSubmit={handleSubmit}>
-          <ModalContent>
-            <ModalHeader>Enter your weight, height and goal</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-                <Stack spacing={4}>
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<GiWeight color={color} />}
-                      />
-                    <Input type="number" name="weight" value={values.weight} onChange={handleChange} placeholder="Your weight in kg" />
-                  </InputGroup>
 
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<GiBodyHeight color={color} />}
-                    />
-                    <Input type="number" name="height" value={values.height} onChange={handleChange} placeholder="Your height in cm" />
-                  </InputGroup>
-
-                  <InputGroup>
-                    <InputLeftElement
-                      pointerEvents="none"
-                      children={<GiStairsGoal color={color} />}
-                    />
-                    <Input type="number" name="goal" value={values.goal} onChange={handleChange} placeholder="Your ideal weight goal" />
-                  </InputGroup>
-                </Stack>
-            </ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="red" variant="ghost" mr={3} onClick={modalAddWHG.onClose}>
-                Close
-              </Button>
-              <Button colorScheme="green" type="submit" >Done</Button>
-            </ModalFooter>
-          </ModalContent>
-              </form>
-              )}
-          </Formik>
-      </Modal>
       {/* MODAL GET CALORIES */}
       <Modal
           isOpen={modalAddCal.isOpen}

@@ -35,7 +35,7 @@ const DashboardNavBar = () => {
   return (
     <header className="  2xl:px-20 mx-auto  justify-between z-10 top-0 bg-white shadow-sm  sticky">
       <div className="flex justify-between items-center px-6 py-2 ">
-        <div className="h-12 flex items-center gap-2">
+        <div className="h-20 flex items-center gap-2">
           <img
             src={Logo}
             alt="Logo KoalaFit"

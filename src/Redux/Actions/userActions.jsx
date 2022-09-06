@@ -168,3 +168,9 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
       payload: cal
     }
   }
+  export const addEditInfoUser = (data) => {
+    return {
+      type: userTypes.addEditInfoUser,
+      payload: data
+    }
+  }
