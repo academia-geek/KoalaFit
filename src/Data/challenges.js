@@ -1,38 +1,45 @@
-export const retos = [
+export const challenges = [
     {
         name: "Saltar la cuerda",
-        calories: 37,
-        time: 5
+        totalCalories: 37,
+        totalTime: 5,
+        uid: crypto.randomUUID()
     },
     {
         name: "Correr moderado",
-        calories: 80,
-        time: 10
+        totalCalories: 80,
+        totalTime: 10,
+        uid: crypto.randomUUID()
     },
     {
         name: "Caminar",
-        calories: 71,
-        time: 20
+        totalCalories: 71,
+        totalTime: 20,
+        uid: crypto.randomUUID()
     },
     {
         name: "Bicileta estatica",
-        calories: 105,
-        time: 15
+        totalCalories: 105,
+        totalTime: 15,
+        uid: crypto.randomUUID()
     },
     {
         name: "Nadar",
-        calories: 80,
-        time: 10
+        totalCalories: 80,
+        totalTime: 10,
+        uid: crypto.randomUUID()
     },
     {
         name: "Flexiones de pecho",
-        calories: 300,
-        time: 30
+        totalCalories: 300,
+        totalTime: 30,
+        uid: crypto.randomUUID()
     },
     {
         name: "Sentadillas",
-        calories: 294,
-        time: 30
+        totalCalories: 294,
+        totalTime: 30,
+        uid: crypto.randomUUID()
     },    
     
 ]
