@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useForm } from "../Hooks/useForm";
-import { collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
@@ -21,6 +21,7 @@ import ProgressTimer from "./counterProgressBar/ProgressTimer";
 
 const DashboardRetos = () => {
     const user = useSelector((state) => state.login)
+    const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
     const [data, setData] = useState([]);
     const { formValue, handleInputChangeName, reset } = useForm({
@@ -32,22 +33,20 @@ const DashboardRetos = () => {
     useEffect(() => {
         let num = crypto.randomUUID();
         const calldata = async () => {
-            const challenges = await getDocs(collection(db, "challenge"));
-
-            challenges.forEach((doc, i = 0) => {
-                setData(doc.data().challenges)
-            });
-
+            const prueba =  doc(db, "challenge", idUser)
+            const prueba2 = await getDoc(prueba)
+            setData(prueba2.data().challenges)
         };
 
         calldata();
+        
     }, [aux]);
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const uid = user.uid
+        const uid = idUser
         const datas = {
 
             name: formValue.name,
@@ -58,11 +57,11 @@ const DashboardRetos = () => {
         }
 
         let challenges = (data != null ? data.concat(datas): datas)
-
-        const datas2 = {
+        
+        const datas2 = { 
             challenges
         }
-       
+        
 
         const vari = await setDoc(doc(db, 'challenge', uid), datas2)
         setAux(!aux)
@@ -88,7 +87,7 @@ const DashboardRetos = () => {
                     'Your file has been deleted.',
                     'success'
                 )
-                const retoDelete = doc(db, "challenge", user.uid);
+                const retoDelete = doc(db, "challenge", idUser);
                 await updateDoc(retoDelete, {
                     challenges: index
                 })

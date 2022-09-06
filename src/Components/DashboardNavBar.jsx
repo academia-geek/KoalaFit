@@ -98,7 +98,7 @@ const DashboardNavBar = () => {
 
             <DrawerFooter className='bg-primary'>
 
-              <Button colorScheme='teal' onClick={() => auth.signOut()} >Logout</Button>
+              <Button colorScheme='teal' onClick={() => {auth.signOut(), localStorage.clear()}} >Logout</Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
