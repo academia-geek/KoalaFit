@@ -25,13 +25,14 @@ import { db } from "../Firebase/firebaseConfig";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import ProgressTimer from "./counterProgressBar/ProgressTimer";
-
+import { challenges } from "../Data/challenges";
 
 const DashboardRetos = () => {
     const user = useSelector((state) => state.login)
+    const retosObject = {challenges}
     const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
-    const [data, setData] = useState([]);
+    const [data, setData] = useState('');
     const [counter, setCounter] = useState(60)
     const modalTimer = useDisclosure();
     const modalBtn = useRef(null);
@@ -42,16 +43,27 @@ const DashboardRetos = () => {
     });
 
     useEffect(() => {
+        
+        
         const calldata = async () => {
             const prueba =  doc(db, "challenge", idUser)
             const prueba2 = await getDoc(prueba)
-            setData(prueba2.data().challenges)
+            
+            setData(prueba2.data() && prueba2.data().challenges)
+            if(!data){
+                retosDefecto()
+            }
         };
 
         calldata();
         
+        
     }, [aux]);
 
+    const retosDefecto = async() =>{
+        const uid = idUser
+        await setDoc(doc(db, 'challenge', uid), retosObject)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -83,7 +95,7 @@ const DashboardRetos = () => {
 
     const handleDelete = ({ target }) => {
         const index = data.filter(e => e.uid !== target.id)
-        console.log(index)
+        
         // const array = [index]
         Swal.fire({
             title: 'Are you sure?',
@@ -145,14 +157,15 @@ const DashboardRetos = () => {
             </div>
 
             <div className="bg-white shadow-md rounded-2xl lg:h-[600px] lg:w-[1000px] w-full overflow-y-scroll pt-4 mb-8 m-auto divTable">
-                <TableContainer>
-                    <Table size="lg">
+                <TableContainer >
+                    <Table size="lg" variant="simple">
                         <Thead>
                             <Tr>
                                 <Th>Name</Th>
                                 <Th>Total calories</Th>
                                 <Th>Time</Th>
                                 <Th>Play</Th>
+                                <Th>Editar Time</Th>
                                 <Th>Delete</Th>
                             </Tr>
                         </Thead>
@@ -165,6 +178,9 @@ const DashboardRetos = () => {
                                             <Td>{totalTime}</Td>
                                             <Td>
                                                 <Button colorScheme="green" onClick={(totalTime) => {modalTimer.onOpen(); click(totalTime)}}>Go</Button>
+                                            </Td>
+                                            <Td>
+                                                <Button colorScheme="yellow" >Editar</Button>
                                             </Td>
                                             <Td>
                                                 <Button onClick={(e) => handleDelete(e)} id={uid} colorScheme="red">Delete</Button>
