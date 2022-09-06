@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import Swal from "sweetalert2";
 
-const ProgressTimer = ({ countdownTimestampMs }) => {
+const ProgressTimer = ({countdownTimestampMs}) => {
   let seg = 0;
   let calcSeg = 0;
   let min = 0;
@@ -28,12 +28,8 @@ const ProgressTimer = ({ countdownTimestampMs }) => {
         min = min + 1;
         calcSeg = 0;
       }
-      setMins(min);
-      setTotalSegs(calcSeg);
-    } else {
-      if (calcSeg - 1 === countdownTimestampMs) {
-        Swal.fire("Good job!", "You clicked the button!", "success");
-      }
+      setMins(min)
+      setTotalSegs(calcSeg)
     }
   }
 

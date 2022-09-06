@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { CgAddR } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
+import { FaRegFileImage } from "react-icons/fa";
+import { GiBodyHeight, GiStairsGoal, GiWeight } from "react-icons/gi";
+import { IoCalendarNumberOutline, IoLocationSharp } from "react-icons/io5";
+import { MdOutlineDelete, MdDriveFileRenameOutline } from "react-icons/md";
 import {
   Menu,
   MenuButton,
@@ -22,17 +26,27 @@ import {
   InputGroup,
   InputLeftElement,
 } from "@chakra-ui/react";
+import { doc, deleteDoc } from "firebase/firestore";
 import { Formik } from "formik";
-import { GiBodyHeight, GiStairsGoal, GiWeight } from "react-icons/gi";
 import { useDispatch, useSelector } from "react-redux";
 import { addEditInfoUser, addWHG } from "../Redux/Actions/userActions";
 import { updatedAlert } from "../helpers/alerts";
 import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { db } from "../Firebase/firebaseConfig";
+import { getAuth } from "firebase/auth";
+
+const MySwal = withReactContent(Swal);
 
 const color = "#0FC185";
 
 
 const DashboardProfileMenu = () => {
+  const auth = getAuth();
+  const { uid } = useSelector(
+    (state) => state.login
+  );
     const [userImg, setUserImg] = useState('')
 
     const modalAddWHG = useDisclosure();
@@ -42,6 +56,23 @@ const DashboardProfileMenu = () => {
 
     const login = useSelector((state) => state.login);
     const dispatch = useDispatch();
+
+    const deleteAccount = () => {
+      MySwal.fire({
+        title: "Do you want to delete your account?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#DC2626',
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          deleteDoc(doc(db, "users", uid));
+          MySwal.fire("Account deleted!", "", "success");
+          auth.signOut();
+        }
+      });
+    };
 
     const widget_cloudinary = cloudinary.createUploadWidget({
         cloudName: 'ikevinmejia',
@@ -79,7 +110,14 @@ const DashboardProfileMenu = () => {
             onClick={modalEditUser.onOpen}
             ref={btnEditUser}
           >
-            Edit account
+            Edit profile
+          </MenuItem>
+          <MenuItem
+            icon={<MdOutlineDelete color={'red'} size="20" />}
+            color={'red'}
+            onClick={deleteAccount}
+          >
+            Delete Account
           </MenuItem>
         </MenuList>
       </Menu>
@@ -201,7 +239,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiWeight color={color} />}
+                        children={<MdDriveFileRenameOutline color={color} />}
                       />
                       <Input
                         type="text"
@@ -215,7 +253,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiBodyHeight color={color} />}
+                        children={<IoCalendarNumberOutline color={color} />}
                       />
                       <Input
                         type="number"
@@ -229,7 +267,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiStairsGoal color={color} />}
+                        children={<IoLocationSharp color={color} />}
                       />
                       <Input
                         type="text"
@@ -242,7 +280,7 @@ const DashboardProfileMenu = () => {
                     <InputGroup>
                       <InputLeftElement
                         pointerEvents="none"
-                        children={<GiStairsGoal color={color} />}
+                        children={<FaRegFileImage color={color} />}
                       />
                       <Input
                         type="button"

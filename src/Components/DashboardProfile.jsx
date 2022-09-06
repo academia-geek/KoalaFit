@@ -33,7 +33,7 @@ import DashboardProfileMenu from "./DashboardProfileMenu";
 const color = '#0FC185'
 const initialDataUser = {
   name: 'Name not found',
-  photo: 'https://res.cloudinary.com/dzsd7vfjr/image/upload/v1661192604/tp7onnln0bsjvyfmlusf.jpg',
+  photo: 'https://res.cloudinary.com/dzsd7vfjr/image/upload/v1662500603/Demdoay/depositphotos_68073147-stock-illustration-animal-koala-cartoon-theme-elements_jfwxmj.webp',
   weight: 64,
   height: '1.70',
   goal: 58,
@@ -43,7 +43,6 @@ const initialDataUser = {
   city: 'EEUU',
   age: 20,
 }
-
 
 const DashboardProfile = () => {
   const modalAddCal = useDisclosure();
