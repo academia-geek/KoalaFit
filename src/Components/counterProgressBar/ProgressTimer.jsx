@@ -30,14 +30,6 @@ const ProgressTimer = ({countdownTimestampMs}) => {
       }
       setMins(min)
       setTotalSegs(calcSeg)
-    }else{
-      if(calcSeg - 1 === countdownTimestampMs){
-        Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success'
-        )
-      }
     }
   }
 
