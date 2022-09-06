@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
     Table,
     Thead,
@@ -9,8 +9,16 @@ import {
     TableContainer,
     Stack,
     Input,
+    useDisclosure,
+    Button,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    ModalFooter,
 } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
 import { useForm } from "../Hooks/useForm";
 import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
@@ -24,6 +32,9 @@ const DashboardRetos = () => {
     const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
     const [data, setData] = useState([]);
+    const [counter, setCounter] = useState(60)
+    const modalTimer = useDisclosure();
+    const modalBtn = useRef(null);
     const { formValue, handleInputChangeName, reset } = useForm({
         name: "",
         totalCalories: "",
@@ -68,6 +79,10 @@ const DashboardRetos = () => {
 
     };
 
+    const click = (e) => {
+        setCounter(Number(e) * 60)
+    }
+
     const handleDelete = ({ target }) => {
         const index = data.filter(e => e.uid !== target.id)
         console.log(index)
@@ -96,10 +111,10 @@ const DashboardRetos = () => {
         })
     }
 
-
     return (
+        <>
         <div className="flex flex-col lg:flex-row justify-around gap-10">
-            <ProgressTimer countdownTimestampMs ={30} />
+            
             <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                 <h1 className="text-center mb-5 font-bold text-gray-800">
                     Add Challenge
@@ -151,7 +166,7 @@ const DashboardRetos = () => {
                                             <Td>{totalCalories}</Td>
                                             <Td>{totalTime}</Td>
                                             <Td>
-                                                <Button colorScheme="green">Go</Button>
+                                                <Button colorScheme="green" onClick={(totalTime) => {modalTimer.onOpen(); click(totalTime)}}>Go</Button>
                                             </Td>
                                             <Td>
                                                 <Button onClick={(e) => handleDelete(e)} id={uid} colorScheme="red">Delete</Button>
@@ -163,6 +178,40 @@ const DashboardRetos = () => {
                 </TableContainer>
             </div>
         </div>
+        <Modal
+        isOpen={modalTimer.isOpen}
+        onClose={modalTimer.onClose}
+        finalFocusRef={modalBtn}
+        initialFocusRef={modalBtn}
+        isCentered
+      >
+        <ModalOverlay />
+
+        <ModalContent>
+          <ModalHeader>Edit Profile</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack spacing={4}>
+            <ProgressTimer countdownTimestampMs ={counter} />
+            </Stack>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="red"
+              variant="ghost"
+              mr={3}
+              onClick={modalTimer.onClose}
+            >
+              Close
+            </Button>
+            <Button colorScheme="green" type="submit">
+              Done
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+        </>
     );
 };
 
