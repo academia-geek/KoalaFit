@@ -112,7 +112,8 @@ const DashboardRetos = () => {
     };
 
     const handleDelete = ({ target }) => {
-        const index = data.filter((e) => e.uid !== target.id);
+        const index = data.filter(e => e.uid !== target.id)
+
         // const array = [index]
         Swal.fire({
             title: "Are you sure?",
@@ -241,11 +242,11 @@ const DashboardRetos = () => {
                 <ModalOverlay />
 
                 <ModalContent>
-                    <ModalHeader>Time Counter</ModalHeader>
+                    <ModalHeader>Edit Profile</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack spacing={4}>
-                            <ProgressTimer countdownTimestampMs={counter * 1} />
+                            <ProgressTimer countdownTimestampMs={counter} />
                         </Stack>
                     </ModalBody>
 
@@ -258,14 +259,7 @@ const DashboardRetos = () => {
                         >
                             Close
                         </Button>
-                        <Button
-                            colorScheme="green"
-                            type="button"
-                            onClick={() => {
-                                modalTimer.onClose();
-                                handleDoneHistorial();
-                            }}
-                        >
+                        <Button colorScheme="green" type="submit">
                             Done
                         </Button>
                     </ModalFooter>
