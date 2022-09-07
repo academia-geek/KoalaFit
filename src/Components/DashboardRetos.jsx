@@ -101,10 +101,15 @@ const DashboardRetos = () => {
     }
 
     const click = (name, totalCalories, totalTime, uid) => {
+        const dt = new Date()
+
+        const date = (`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`)
+
         const DataUsertoHistorial = {
             name,
             totalCalories,
             totalTime,
+            date:date,
             uid,
         };
         setCounter(totalTime);
@@ -150,9 +155,9 @@ const DashboardRetos = () => {
             await setDoc(doc(db, "History", idUser), datas);
         } else {
             
-            const washingtonRef = doc(db, "History", idUser);
+            const RefHistory = doc(db, "History", idUser);
 
-        await updateDoc(washingtonRef, {
+            await updateDoc(RefHistory, {
             auxHistory: arrayUnion(dataAux)});
         }
         modalTimer.onClose()
@@ -245,7 +250,7 @@ const DashboardRetos = () => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack spacing={4}>
-                            <ProgressTimer countdownTimestampMs={counter} />
+                            <ProgressTimer countdownTimestampMs={counter * 60} />
                         </Stack>
                     </ModalBody>
 

@@ -11,22 +11,23 @@ import {
 import { useState } from "react";
 import { useEffect } from "react";
 import { db } from "../Firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 const DashboardHistory = () => {
+  const idUser = localStorage.getItem("idUserLogin")
   const [data, setData] = useState([]);
+  const [actualDate, setActualDate] = useState()
 
   useEffect(() => {
     const calldata = async () => {
-      const challenges = await getDocs(collection(db, "challenge"));
-      challenges.forEach((doc) => {
-        if (data.length < 1) {
-          setData((prev) => [...prev, doc.data()]);
-        }
-      });
+      const DirecHistory = doc(db, "History", idUser)
+      const History = await getDoc(DirecHistory)
+      setData(History.data().auxHistory)
     };
     calldata();
   }, []);
+
+
 
   return (
     <div className="divTable mx-auto mt-10 max-w-2xl justify-center text-center w-11/12 bg-fourty rounded-2xl">
