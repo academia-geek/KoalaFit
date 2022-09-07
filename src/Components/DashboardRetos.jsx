@@ -116,7 +116,7 @@ const DashboardRetos = () => {
             totalCalories,
             totalTime,
             date:date,
-            uid,
+            uid:crypto.randomUUID(),
         };
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
@@ -124,7 +124,6 @@ const DashboardRetos = () => {
 
     const handleDelete = ({ target }) => {
         const index = data.filter(e => e.uid !== target.id)
-        console.log(index);
         // const array = [index]
         Swal.fire({
             title: "Are you sure?",
@@ -175,14 +174,9 @@ const DashboardRetos = () => {
         
     }
 
-    
-    const handlemesta = () => {
-        console.log(blockProgress);
-    }
     return (
         <>
             <div className="flex flex-col lg:flex-row justify-around gap-10">
-                <button onClick={handlemesta}>Aqui</button>
                 <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                     <h1 className="text-center mb-5 font-bold text-gray-800">
                         Add Challenge

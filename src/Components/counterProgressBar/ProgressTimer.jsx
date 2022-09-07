@@ -32,7 +32,6 @@ const ProgressTimer = ({countdownTimestampMs}) => {
       }
       setMins(min)
       setTotalSegs(calcSeg)
-      console.log(seg);
       setBlockProgress(false)
     }else{
       if(seg >= countdownTimestampMs) {
