@@ -255,7 +255,7 @@ const DashboardRetos = () => {
                         >
                             Close
                         </Button>
-                        <Button colorScheme="green" type="submit">
+                        <Button colorScheme="green" type="button" onClick={modalTimer.onClose}>
                             Done
                         </Button>
                     </ModalFooter>
