@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
     Table,
     Thead,
@@ -37,8 +37,10 @@ import { useSelector } from "react-redux";
 import ProgressTimer from "./counterProgressBar/ProgressTimer";
 import { challenges } from "../Data/challenges";
 import EditModal from "./EditModal";
+import { Context } from "../Context/ContextProvider";
 
 const DashboardRetos = () => {
+    const {blockProgress} = useContext(Context)
     const user = useSelector((state) => state.login)
     const retosObject = { challenges }
     const idUser = localStorage.getItem("idUserLogin")
@@ -174,11 +176,13 @@ const DashboardRetos = () => {
     }
 
     
-
+    const handlemesta = () => {
+        console.log(blockProgress);
+    }
     return (
         <>
             <div className="flex flex-col lg:flex-row justify-around gap-10">
-                
+                <button onClick={handlemesta}>Aqui</button>
                 <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                     <h1 className="text-center mb-5 font-bold text-gray-800">
                         Add Challenge
@@ -277,9 +281,17 @@ const DashboardRetos = () => {
                         >
                             Close
                         </Button>
-                        <Button colorScheme="green" type="button" onClick={handleDoneHistorial}>
-                            Done
-                        </Button>
+                        {
+                            blockProgress === true ? 
+                            <Button colorScheme="green" type="button" onClick={handleDoneHistorial}>
+                                Done
+                            </Button>
+                            :
+                            <Button colorScheme="green" type="text">
+                                Done
+                            </Button>
+                        }
+                        
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -305,9 +317,9 @@ const DashboardRetos = () => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme="green" type="button" onClick={ () => {modalEdit.onClose(), setAux(!aux)}} >
+                            <Button colorScheme="green" type="button" onClick={ () => {modalEdit.onClose(), setAux(!aux)}} >
                             Done
-                        </Button>
+                            </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import Swal from "sweetalert2";
+import { Context } from "../../Context/ContextProvider";
 
 const ProgressTimer = ({countdownTimestampMs}) => {
+  const {setBlockProgress} = useContext(Context)
   let seg = 0;
   let calcSeg = 0;
   let min = 0;
@@ -30,6 +32,12 @@ const ProgressTimer = ({countdownTimestampMs}) => {
       }
       setMins(min)
       setTotalSegs(calcSeg)
+      console.log(seg);
+      setBlockProgress(false)
+    }else{
+      if(seg >= countdownTimestampMs) {
+        setBlockProgress(true)
+      }
     }
   }
 
