@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { GiTrophy } from 'react-icons/gi';
 import {
     Table,
@@ -12,9 +12,52 @@ import {
     Input,
     Button
 } from '@chakra-ui/react'
+import { db } from '../Firebase/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 
 
 const DashboardRanking = () => {
+    const idUser = localStorage.getItem("idUserLogin")
+
+    const [ranking, setRanking] = useState([])
+
+    const datosRanking = async() =>{
+        
+        const historyRef = await getDocs(collection(db, "History"))
+        let contadorRetos = 0
+        let contadorCalorias = 0
+        let arrayRanking = []
+        historyRef.forEach((doc) => {
+            let aux = doc.data().auxHistory
+            aux.forEach((doc2,i=0) =>{
+                contadorRetos = i+1
+                contadorCalorias += Number(doc2.totalCalories)
+            })
+            const datos = {
+                contadorRetos,
+                contadorCalorias
+            }
+            arrayRanking.push(datos)
+        }) 
+        
+        
+        arrayRanking.sort(functioRara);
+        console.log(arrayRanking)
+    }
+    
+    const functioRara = (a, b) =>{
+        if ( a.contadorRetos > b.contadorRetos){
+            return -1;
+          }
+          if ( a.contadorRetos < b.contadorRetos){
+            return 1;
+          }
+          return 0;
+    }   
+
+    datosRanking()
+
+
     return (
         <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-20 border mx-auto rounded-3xl shadow-lg bg-white w-11/12'>
             <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
