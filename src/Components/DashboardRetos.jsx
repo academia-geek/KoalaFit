@@ -22,7 +22,6 @@ import {
 import { useForm } from "../Hooks/useForm";
 import {
     addDoc,
-    arrayUnion,
     collection,
     deleteDoc,
     doc,
@@ -54,7 +53,6 @@ const DashboardRetos = () => {
     });
 
     useEffect(() => {
-
 
         const calldata = async () => {
             const prueba = doc(db, "challenge", idUser)
@@ -101,17 +99,13 @@ const DashboardRetos = () => {
     }
 
     const click = (name, totalCalories, totalTime, uid) => {
-        const dt = new Date()
-
-        const date = (`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`)
-
         const DataUsertoHistorial = {
             name,
             totalCalories,
             totalTime,
-            date:date,
             uid,
         };
+        console.log(totalTime);
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
     };
@@ -144,21 +138,19 @@ const DashboardRetos = () => {
         let auxHistory = null;
         const IdHistory = doc(db, "History", idUser);
         const History = await getDoc(IdHistory);
-        auxHistory = History && History.data() ;
+
+        auxHistory = History && [History.data()] ;
 
         if (History.data() === undefined) {
-            auxHistory = [dataAux];
-
-            const datas = {
-                auxHistory
-            }
-            await setDoc(doc(db, "History", idUser), datas);
+            auxHistory = dataAux;
+            await setDoc(doc(db, "History", idUser), auxHistory);
         } else {
-            
-            const RefHistory = doc(db, "History", idUser);
+            auxHistory.push(dataAux);
 
-            await updateDoc(RefHistory, {
-            auxHistory: arrayUnion(dataAux)});
+            const ObjDataAux = {
+                auxHistory,
+            };
+            await setDoc(doc(db, "History", idUser), ObjDataAux);
         }
         modalTimer.onClose()
     };
@@ -250,7 +242,7 @@ const DashboardRetos = () => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack spacing={4}>
-                            <ProgressTimer countdownTimestampMs={counter * 60} />
+                            <ProgressTimer countdownTimestampMs={counter} />
                         </Stack>
                     </ModalBody>
 

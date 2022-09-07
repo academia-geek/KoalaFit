@@ -38,6 +38,10 @@ import {
           age: action.payload.age,
           city: action.payload.city,
         }
+      case userTypes.addHistoryOfCalories:
+        return {
+          history: action.payload
+        }
 
       default:
         return state;

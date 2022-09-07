@@ -174,3 +174,9 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
       payload: data
     }
   }
+  export const addHistoryOfCalories = (data) => {
+    return {
+      type: userTypes.addHistoryOfCalories,
+      payload: data
+    }
+  }
