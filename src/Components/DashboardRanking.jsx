@@ -110,8 +110,8 @@ const DashboardRanking = () => {
                     <span className='text-[40px] lg:text-[40px] font-bold text-primary not-italic'>Challenge</span>
                     <GiTrophy size={100} color='#f7d413' />
                     
-                        <TableContainer className='h-[400px] mt-10 divTable' overflowY="auto">
-                            <Table size='lg'>
+                        <TableContainer className='h-[400px] mt-10 divTable ' overflowY="auto" >
+                            <Table size='md' variant={"simple"}   >
                                 <Thead>
                                     <Tr>
                                         <Th>Rank</Th>
