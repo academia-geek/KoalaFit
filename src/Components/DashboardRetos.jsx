@@ -99,10 +99,12 @@ const DashboardRetos = () => {
 
     }
 
-    const click = (name, totalCalories, totalTime, uid) => {
+    const click = async (name, totalCalories, totalTime, uid) => {
         const dt = new Date()
-
+        const dataNameRef = doc(db,"users", idUser)
+        const dataName = await getDoc(dataNameRef)
         const date = (`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`)
+
 
         const DataUsertoHistorial = {
             name,
@@ -110,6 +112,8 @@ const DashboardRetos = () => {
             totalTime,
             date:date,
             uid,
+            nameUser: dataName.data().displayName
+
         };
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);

@@ -13,7 +13,7 @@ import {
     Button
 } from '@chakra-ui/react'
 import { db } from '../Firebase/firebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 
 
 const DashboardRanking = () => {
@@ -26,16 +26,28 @@ const DashboardRanking = () => {
         const historyRef = await getDocs(collection(db, "History"))
         let contadorRetos = 0
         let contadorCalorias = 0
+        let contadorTiempo = 0
         let arrayRanking = []
-        historyRef.forEach((doc) => {
-            let aux = doc.data().auxHistory
+        let id
+        let name
+        
+
+        historyRef.forEach((doc1) => {
+            let aux = doc1.data().auxHistory
+            
             aux.forEach((doc2,i=0) =>{
                 contadorRetos = i+1
                 contadorCalorias += Number(doc2.totalCalories)
+                contadorTiempo += Number(doc2.totalTime)
+                id = doc1.id
+                name = doc2.nameUser
             })
             const datos = {
                 contadorRetos,
-                contadorCalorias
+                contadorCalorias,
+                contadorTiempo,
+                id,
+                name
             }
             arrayRanking.push(datos)
         }) 
