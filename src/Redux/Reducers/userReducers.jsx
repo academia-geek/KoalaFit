@@ -6,6 +6,7 @@ import {
     whg: {},
     water: '',
     calories: '',
+    totalCal: 0
   }
 
   export const userReducer = (state = initialState, action) => {
@@ -40,7 +41,8 @@ import {
         }
       case userTypes.addHistoryOfCalories:
         return {
-          history: action.payload
+          ...state,
+          totalCal: action.payload
         }
 
       default:

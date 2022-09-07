@@ -107,7 +107,7 @@ const DashboardProfile = () => {
 
             <div className="mt-6">
               <p className="text-textColor">Burned</p>
-              <p>430 kcal</p>
+              <p>{login.totalCal} kcal</p>
             </div>
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">
@@ -172,7 +172,7 @@ const DashboardProfile = () => {
             updateUserDataInFirestore(login.uid, values)
             dispatch(addCalories(values))
             modalAddCal.onClose()
-            calculateCal(setCalCounter, 300, values.calories)
+            calculateCal(setCalCounter, login.totalCal, values.calories)
             updatedAlert()
             console.log(values);
           })}>
