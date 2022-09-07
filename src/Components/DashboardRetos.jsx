@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
     Table,
     Thead,
@@ -36,17 +36,23 @@ import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
 import ProgressTimer from "./counterProgressBar/ProgressTimer";
 import { challenges } from "../Data/challenges";
+import EditModal from "./EditModal";
+import { Context } from "../Context/ContextProvider";
 
 const DashboardRetos = () => {
+    const {blockProgress} = useContext(Context)
     const user = useSelector((state) => state.login)
     const retosObject = { challenges }
     const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
+    const [switche, setSwitche] = useState(false)
     const [dataAux, setDataAux] = useState([])
     const [data, setData] = useState('');
     const [counter, setCounter] = useState()
     const modalTimer = useDisclosure();
+    const modalEdit = useDisclosure();
     const modalBtn = useRef(null);
+    const modalBtn2 = useRef(null);
     const { formValue, handleInputChangeName, reset } = useForm({
         name: "",
         totalCalories: "",
@@ -109,7 +115,7 @@ const DashboardRetos = () => {
             totalCalories,
             totalTime,
             date:date,
-            uid,
+            uid:crypto.randomUUID(),
         };
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
@@ -117,7 +123,6 @@ const DashboardRetos = () => {
 
     const handleDelete = ({ target }) => {
         const index = data.filter(e => e.uid !== target.id)
-
         // const array = [index]
         Swal.fire({
             title: "Are you sure?",
@@ -163,11 +168,14 @@ const DashboardRetos = () => {
     };
 
 
+    const handleEditChallenge = ({target}) => {
+        setSwitche(target.id)
+        
+    }
 
     return (
         <>
             <div className="flex flex-col lg:flex-row justify-around gap-10">
-
                 <div className="bg-white shadow-md rounded-2xl py-8 px-8 lg:h-full max-w-xs m-auto items-center divTable">
                     <h1 className="text-center mb-5 font-bold text-gray-800">
                         Add Challenge
@@ -219,11 +227,13 @@ const DashboardRetos = () => {
                                             <Td>{name}</Td>
                                             <Td>{totalCalories}</Td>
                                             <Td>{totalTime}</Td>
+                                            
                                             <Td>
                                                 <Button colorScheme="green" onClick={() => { modalTimer.onOpen(); click(name, totalCalories, totalTime, uid) }}>Go</Button>
                                             </Td>
                                             <Td>
-                                                <Button colorScheme="yellow" >Editar</Button>
+                                                <Button colorScheme="yellow" onClick={(e) => { modalEdit.onOpen(); handleEditChallenge(e)}} id={uid} >Editar</Button>
+                                                
                                             </Td>
                                             <Td>
                                                 <Button onClick={(e) => handleDelete(e)} id={uid} colorScheme="red">Delete</Button>
@@ -235,6 +245,8 @@ const DashboardRetos = () => {
                     </TableContainer>
                 </div>
             </div>
+
+            {/* primer modal */}
             <Modal
                 isOpen={modalTimer.isOpen}
                 onClose={modalTimer.onClose}
@@ -262,9 +274,45 @@ const DashboardRetos = () => {
                         >
                             Close
                         </Button>
-                        <Button colorScheme="green" type="button" onClick={handleDoneHistorial}>
+                        {
+                            blockProgress === true ? 
+                            <Button colorScheme="green" type="button" onClick={handleDoneHistorial}>
+                                Done
+                            </Button>
+                            :
+                            <Button colorScheme="green" type="text">
+                                Done
+                            </Button>
+                        }
+                        
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+
+
+            {/* Segundo modal */}
+            <Modal
+                isOpen={modalEdit.isOpen}
+                onClose={modalEdit.onClose}
+                finalFocusRef={modalBtn}
+                initialFocusRef={modalBtn}
+                isCentered
+            >
+                <ModalOverlay />
+
+                <ModalContent>
+                    <ModalHeader>Edit Time</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Stack spacing={4}>
+                            <EditModal id={switche} /> 
+                        </Stack>
+                    </ModalBody>
+
+                    <ModalFooter>
+                            <Button colorScheme="green" type="button" onClick={ () => {modalEdit.onClose(), setAux(!aux)}} >
                             Done
-                        </Button>
+                            </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
