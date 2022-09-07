@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
     Table,
     Thead,
@@ -33,18 +33,24 @@ import {
 } from "firebase/firestore";
 import { db } from "../Firebase/firebaseConfig";
 import Swal from "sweetalert2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProgressTimer from "./counterProgressBar/ProgressTimer";
 import { challenges } from "../Data/challenges";
+import lodash from 'lodash'
+import { addHistoryOfCalories } from "../Redux/Actions/userActions";
+import { Context } from "../Context/ContextProvider";
+import { calculateCal } from "../helpers/calculateCal";
 
 const DashboardRetos = () => {
-    const user = useSelector((state) => state.login)
+    const login = useSelector(state => state.login)
+    const dispatch = useDispatch()
     const retosObject = { challenges }
     const idUser = localStorage.getItem("idUserLogin")
     const [aux, setAux] = useState(false)
     const [dataAux, setDataAux] = useState([])
     const [data, setData] = useState('');
     const [counter, setCounter] = useState()
+    const {setCalCounter, calCounter} = useContext(Context)
     const modalTimer = useDisclosure();
     const modalBtn = useRef(null);
     const { formValue, handleInputChangeName, reset } = useForm({
@@ -152,16 +158,28 @@ const DashboardRetos = () => {
                 auxHistory
             }
             await setDoc(doc(db, "History", idUser), datas);
+
+
         } else {
-            
+
             const RefHistory = doc(db, "History", idUser);
 
             await updateDoc(RefHistory, {
             auxHistory: arrayUnion(dataAux)});
         }
+
+        const auxFunction = () => {
+            const puntos = auxHistory.auxHistory.map( cal => Number(cal.totalCalories))
+
+            const totalCal = lodash.sum(puntos)
+
+            dispatch(addHistoryOfCalories(totalCal))
+            calculateCal(setCalCounter, totalCal , login.calories.calories)
+        }
+
+        (auxHistory.auxHistory && auxFunction())
         modalTimer.onClose()
     };
-
 
 
     return (

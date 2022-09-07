@@ -12,13 +12,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { db } from "../Firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import { useDispatch, useSelector } from "react-redux";
-import lodash from 'lodash'
-import { addHistoryOfCalories } from "../Redux/Actions/userActions";
+
 
 const DashboardHistory = () => {
-  const login = useSelector(state => state.login)
-  const dispatch = useDispatch()
+  
   const idUser = localStorage.getItem("idUserLogin")
   const [data, setData] = useState([]);
   const [actualDate, setActualDate] = useState()
@@ -28,11 +25,6 @@ const DashboardHistory = () => {
       const DirecHistory = doc(db, "History", idUser)
       const History = await getDoc(DirecHistory)
       setData(History.data().auxHistory)
-      const puntos = data.map( cal => Number(cal.totalCalories))
-      const totalCal = lodash.sum(puntos)
-      console.log(totalCal);
-      console.log(login);
-      dispatch(addHistoryOfCalories(totalCal))
     };
     calldata();
   }, []);

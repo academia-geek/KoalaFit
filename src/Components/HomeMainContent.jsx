@@ -20,7 +20,7 @@ const HomeMainContent = () => {
 
   return (
     <div id="home">
-      <div className={`w-full bg-WaveHome bg-bottom bg-no-repeat bg-cover mt-4 transition-opacity duration-300 h-[90vh] relative 
+      <div className={`w-full bg-WaveHome bg-bottom bg-no-repeat bg-cover mt-4 transition-opacity duration-300 h-[90vh] relative
         ${(showModal || showModal2) ? 'opacity-30 ' : 'opacity-100'}`}
         onClick={handleModals}
         >

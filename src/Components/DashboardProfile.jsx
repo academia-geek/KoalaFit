@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
@@ -28,6 +28,7 @@ import { updatedAlert } from "../helpers/alerts";
 import { calculateCal } from "../helpers/calculateCal";
 import { calculateWater } from "../helpers/calculateWater";
 import DashboardProfileMenu from "./DashboardProfileMenu";
+import { Context } from "../Context/ContextProvider";
 
 
 const color = '#0FC185'
@@ -37,7 +38,7 @@ const initialDataUser = {
   weight: 64,
   height: '1.70',
   goal: 58,
-  calorieGoal: 500,
+  calorieGoal: 0,
   calorieBurned: 0,
   water: 0,
   city: 'EEUU',
@@ -45,16 +46,15 @@ const initialDataUser = {
 }
 
 const DashboardProfile = () => {
+  const login = useSelector(state => state.login)
   const modalAddCal = useDisclosure();
   const modalAddWater = useDisclosure();
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
-  const [calCounter, setCalCounter] = useState(0)
   const [waterCounter, setWaterCounter] = useState(0)
+  const {setCalCounter, calCounter} = useContext(Context)
 
-  const login = useSelector(state => state.login)
   const dispatch = useDispatch()
-  
 
   return (
     <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
@@ -107,7 +107,7 @@ const DashboardProfile = () => {
 
             <div className="mt-6">
               <p className="text-textColor">Burned</p>
-              <p>{login.totalCal} kcal</p>
+              <p>{login.totalCal ?  login.totalCal : initialDataUser.calorieBurned} kcal</p>
             </div>
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">

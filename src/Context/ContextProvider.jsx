@@ -7,6 +7,7 @@ const ContextProvider = ({children}) => {
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const [id, setId] = useState(null)
+    const [calCounter, setCalCounter] = useState(0)
 
     const handleModal = () => {
         setShowModal(!showModal);
@@ -28,7 +29,9 @@ const ContextProvider = ({children}) => {
         handleModal2,
         showDrawer,
         id,
-        setId
+        setId,
+        calCounter,
+        setCalCounter
     }
 
 
