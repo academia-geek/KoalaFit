@@ -22,6 +22,7 @@ import {
 import { useForm } from "../Hooks/useForm";
 import {
     addDoc,
+    arrayUnion,
     collection,
     deleteDoc,
     doc,
@@ -100,13 +101,17 @@ const DashboardRetos = () => {
     }
 
     const click = (name, totalCalories, totalTime, uid) => {
+        const dt = new Date()
+
+        const date = (`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`)
+
         const DataUsertoHistorial = {
             name,
             totalCalories,
             totalTime,
+            date:date,
             uid,
         };
-        console.log(totalTime);
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
     };
@@ -139,19 +144,21 @@ const DashboardRetos = () => {
         let auxHistory = null;
         const IdHistory = doc(db, "History", idUser);
         const History = await getDoc(IdHistory);
-
-        auxHistory = History && [History.data()] ;
+        auxHistory = History && History.data() ;
 
         if (History.data() === undefined) {
-            auxHistory = dataAux;
-            await setDoc(doc(db, "History", idUser), auxHistory);
-        } else {
-            auxHistory.push(dataAux);
+            auxHistory = [dataAux];
 
-            const ObjDataAux = {
-                auxHistory,
-            };
-            await setDoc(doc(db, "History", idUser), ObjDataAux);
+            const datas = {
+                auxHistory
+            }
+            await setDoc(doc(db, "History", idUser), datas);
+        } else {
+            
+            const RefHistory = doc(db, "History", idUser);
+
+            await updateDoc(RefHistory, {
+            auxHistory: arrayUnion(dataAux)});
         }
         modalTimer.onClose()
     };
@@ -243,7 +250,7 @@ const DashboardRetos = () => {
                     <ModalCloseButton />
                     <ModalBody>
                         <Stack spacing={4}>
-                            <ProgressTimer countdownTimestampMs={counter} />
+                            <ProgressTimer countdownTimestampMs={counter * 60} />
                         </Stack>
                     </ModalBody>
 
