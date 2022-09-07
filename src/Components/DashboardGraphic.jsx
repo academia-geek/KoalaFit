@@ -33,6 +33,7 @@ ChartJS.register(
     },
   };
 
+  // Tiempo en semana debe ser un arreglo
   const labels = ['00', '01', '02', '03', '04', '05',];
 
   export const data = {
