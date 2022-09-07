@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { GiTrophy } from 'react-icons/gi';
 import {
     Table,
@@ -18,11 +18,11 @@ import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firesto
 
 const DashboardRanking = () => {
     const idUser = localStorage.getItem("idUserLogin")
+    let rankingOrder
+    const [ranking, setRanking] = useState()
 
-    const [ranking, setRanking] = useState([])
+    const datosRanking = async (state) => {
 
-    const datosRanking = async() =>{
-        
         const historyRef = await getDocs(collection(db, "History"))
         let contadorRetos = 0
         let contadorCalorias = 0
@@ -30,13 +30,13 @@ const DashboardRanking = () => {
         let arrayRanking = []
         let id
         let name
-        
+
 
         historyRef.forEach((doc1) => {
             let aux = doc1.data().auxHistory
-            
-            aux.forEach((doc2,i=0) =>{
-                contadorRetos = i+1
+
+            aux.forEach((doc2, i = 0) => {
+                contadorRetos = i + 1
                 contadorCalorias += Number(doc2.totalCalories)
                 contadorTiempo += Number(doc2.totalTime)
                 id = doc1.id
@@ -50,26 +50,29 @@ const DashboardRanking = () => {
                 name
             }
             arrayRanking.push(datos)
-        }) 
-        
-        
-        arrayRanking.sort(functioRara);
-        console.log(arrayRanking)
+        })
+
+
+        const array2 = arrayRanking.sort(functioRara);
+        state(array2)
+
     }
-    
-    const functioRara = (a, b) =>{
-        if ( a.contadorRetos > b.contadorRetos){
+
+    const functioRara = (a, b) => {
+        if (a.contadorRetos > b.contadorRetos) {
             return -1;
-          }
-          if ( a.contadorRetos < b.contadorRetos){
+        }
+        if (a.contadorRetos < b.contadorRetos) {
             return 1;
-          }
-          return 0;
-    }   
+        }
+        return 0;
+    }
 
-    datosRanking()
+    useEffect(() => {
+        datosRanking(setRanking)
+    }, [])
 
-
+    
     return (
         <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-20 border mx-auto rounded-3xl shadow-lg bg-white w-11/12'>
             <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
@@ -101,27 +104,18 @@ const DashboardRanking = () => {
                                     </Tr>
                                 </Thead>
                                 <Tbody>
-                                    <Tr>
-                                        <Td>inches</Td>
-                                        <Td>millimetres (mm)</Td>
-                                        <Td >25.4</Td>
-                                        <Td >700</Td>
+                                    {
+                                        ranking &&
+                                        ranking.map((e, idx = 0) => (
+                                            <Tr key={idx}>
+                                                <Td>{e.name}</Td>
+                                                <Td>{e.contadorCalorias}</Td>
+                                                <Td>{e.contadorTiempo}</Td>
+                                                <Td>{e.contadorRetos}</Td>
+                                            </Tr>
+                                        ))
                                         
-                                    </Tr>
-                                    <Tr>
-                                        <Td>feet</Td>
-                                        <Td>centimetres (cm)</Td>
-                                        <Td >30.48</Td>
-                                        <Td>698</Td>
-                                        
-                                    </Tr>
-                                    <Tr>
-                                        <Td>yards</Td>
-                                        <Td>metres (m)</Td>
-                                        <Td>0.91444</Td>
-                                        <Td>454</Td>    
-                                    </Tr>
-
+                                    }
 
                                 </Tbody>
 
