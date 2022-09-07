@@ -73,6 +73,14 @@ const DashboardRanking = () => {
         if (a.contadorRetos < b.contadorRetos) {
             return 1;
         }
+        if(a.contadorRetos == b.contadorRetos){
+            if(a.contadorCalorias > b.contadorCalorias){
+                return -1;
+            }
+            if(a.contadorCalorias < b.contadorCalorias){
+                return 1;
+            }
+        }
         return 0;
     }
 
@@ -83,10 +91,10 @@ const DashboardRanking = () => {
     
     
     return (
-        <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-20 border mx-auto rounded-3xl shadow-lg bg-white w-11/12'>
-            <div className='flex flex-col lg:flex-row w-full items-center justify-around'>
+        <div className='mt-12 flex flex-col items-center lg:px-20 px-2  py-14 border mx-auto rounded-3xl shadow-lg bg-white w-11/12 '>
+            <div className='flex flex-col lg:flex-row w-full items-center justify-center gap-10'>
 
-                <div className='flex flex-col items-center w-full'>
+                <div className='flex flex-col items-center w-full  min-w-max'>
                     <h1 className='font-extralight text-4xl text-gray-800'>Your Rank</h1>
                     <h1 className='text-[50px] mb-2'>#{rank? rank: "you have no rank"}</h1>
                     <div className='-mt-20'>
@@ -97,15 +105,16 @@ const DashboardRanking = () => {
 
                 </div>
 
-                <div className='text-center leading-[70px] flex flex-col items-center  w-full'>
+                <div className='text-center leading-[70px] flex flex-col items-center w-full lg:w-[65%] lg:px-10'>
                     <h1 className='font-extralight italic text-4xl'>Top Rank</h1>
                     <span className='text-[40px] lg:text-[40px] font-bold text-primary not-italic'>Challenge</span>
                     <GiTrophy size={100} color='#f7d413' />
-                    <div className='divTable w-full mt-10  text-center overflow-y-scroll'>
-                        <TableContainer>
+                    
+                        <TableContainer className='h-[400px] mt-10 divTable' overflowY="auto">
                             <Table size='lg'>
                                 <Thead>
                                     <Tr>
+                                        <Th>Rank</Th>
                                         <Th>Name</Th>
                                         <Th>Total calories</Th>
                                         <Th>Total time</Th>
@@ -117,6 +126,7 @@ const DashboardRanking = () => {
                                         ranking &&
                                         ranking.map((e, idx = 0) => (
                                             <Tr key={idx}>
+                                                <Td>{idx+1}</Td>
                                                 <Td>{e.name}</Td>
                                                 <Td>{e.contadorCalorias}</Td>
                                                 <Td>{e.contadorTiempo} Minutes</Td>
@@ -130,7 +140,7 @@ const DashboardRanking = () => {
 
                             </Table>
                         </TableContainer>
-                    </div>
+                    
                 </div>
             </div>
 
