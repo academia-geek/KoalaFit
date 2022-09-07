@@ -23,6 +23,8 @@ const DashboardHistory = () => {
       const DirecHistory = doc(db, "History", idUser)
       const History = await getDoc(DirecHistory)
       setData(History.data().auxHistory)
+      console.log(History.data().auxHistory);
+      
     };
     calldata();
   }, []);
