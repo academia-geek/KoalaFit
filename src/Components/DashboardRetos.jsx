@@ -43,7 +43,7 @@ const DashboardRetos = () => {
     const [aux, setAux] = useState(false)
     const [dataAux, setDataAux] = useState([])
     const [data, setData] = useState('');
-    const [counter, setCounter] = useState(60)
+    const [counter, setCounter] = useState()
     const modalTimer = useDisclosure();
     const modalBtn = useRef(null);
     const { formValue, handleInputChangeName, reset } = useForm({
@@ -106,7 +106,7 @@ const DashboardRetos = () => {
             totalTime,
             uid,
         };
-
+        console.log(totalTime);
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
     };
@@ -141,11 +141,9 @@ const DashboardRetos = () => {
         const History = await getDoc(IdHistory);
 
         auxHistory = History ? [History.data()] : null;
-        console.log(History.data());
 
         if (History.data() === undefined) {
             auxHistory = dataAux;
-            console.log("1")
             await setDoc(doc(db, "History", idUser), auxHistory);
         } else {
             auxHistory.push(dataAux);
@@ -153,8 +151,6 @@ const DashboardRetos = () => {
             const ObjDataAux = {
                 auxHistory,
             };
-
-            console.log("2")
             await setDoc(doc(db, "History", idUser), ObjDataAux);
         }
     };
@@ -217,7 +213,7 @@ const DashboardRetos = () => {
                                             <Td>{totalCalories}</Td>
                                             <Td>{totalTime}</Td>
                                             <Td>
-                                                <Button colorScheme="green" onClick={(totalTime) => { modalTimer.onOpen(); click(totalTime) }}>Go</Button>
+                                                <Button colorScheme="green" onClick={() => { modalTimer.onOpen(); click(name, totalCalories, totalTime, uid) }}>Go</Button>
                                             </Td>
                                             <Td>
                                                 <Button colorScheme="yellow" >Editar</Button>
