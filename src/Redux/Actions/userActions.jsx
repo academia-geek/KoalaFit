@@ -16,7 +16,7 @@ import {
   } from "../../Firebase/firebaseConfig";
 import { createUserInFirestore } from "../../helpers/createUserInFirestore";
 
-  const loginSync = (user) => ({
+ export const loginSync = (user) => ({
     type: userTypes.login,
     payload: user,
   });
@@ -89,7 +89,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
             }
           }) =>{
             const userData = {displayName, email, photoURL, uid}
-            createUserInFirestore(uid,userData)
+            createUserInFirestore(uid,userData, dispatch)
             dispatch(loginProvider(displayName, email, photoURL, uid))
           }
         )
@@ -132,7 +132,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
           }) =>
           {
             const userData = {displayName, email, photoURL, uid}
-            createUserInFirestore(uid,userData)
+            createUserInFirestore(uid,userData, dispatch)
             dispatch(loginProvider(displayName, email, photoURL, uid))
           }
         )
