@@ -140,7 +140,7 @@ const DashboardRetos = () => {
         const IdHistory = doc(db, "History", idUser);
         const History = await getDoc(IdHistory);
 
-        auxHistory = History ? [History.data()] : null;
+        auxHistory = History && [History.data()] ;
 
         if (History.data() === undefined) {
             auxHistory = dataAux;
@@ -153,6 +153,7 @@ const DashboardRetos = () => {
             };
             await setDoc(doc(db, "History", idUser), ObjDataAux);
         }
+        modalTimer.onClose()
     };
 
 
@@ -255,7 +256,7 @@ const DashboardRetos = () => {
                         >
                             Close
                         </Button>
-                        <Button colorScheme="green" type="button" onClick={modalTimer.onClose}>
+                        <Button colorScheme="green" type="button" onClick={handleDoneHistorial}>
                             Done
                         </Button>
                     </ModalFooter>
