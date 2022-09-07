@@ -18,7 +18,6 @@ import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firesto
 
 const DashboardRanking = () => {
     const idUser = localStorage.getItem("idUserLogin")
-    let rankingOrder
     const [ranking, setRanking] = useState()
     const [rank, setRank] = useState()
     const [challengesCompleted, setChallengesCompleted] = useState()
