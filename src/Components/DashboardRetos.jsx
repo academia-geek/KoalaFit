@@ -53,7 +53,7 @@ const {blockProgress} = useContext(Context)
     const [aux, setAux] = useState(false)
     const [switche, setSwitche] = useState(false)
     const [dataAux, setDataAux] = useState([])
-    const [data, setData] = useState('');
+    const [data, setData] = useState();
     const [counter, setCounter] = useState()
     const {setCalCounter, calCounter} = useContext(Context)
     const modalTimer = useDisclosure();
@@ -127,8 +127,10 @@ const {blockProgress} = useContext(Context)
             uid:crypto.randomUUID(),
             nameUser: dataName.data().displayName
         };
+        console.log(DataUsertoHistorial)
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
+        
     };
 
     const handleDelete = ({ target }) => {
@@ -183,7 +185,8 @@ const {blockProgress} = useContext(Context)
             const totalCal = lodash.sum(puntos)
 
             dispatch(addHistoryOfCalories(totalCal))
-            calculateCal(setCalCounter, totalCal , login.calories.calories)
+            console.log(login.calories)
+            // calculateCal(setCalCounter, totalCal , login.calories.calories)
         }
 
         (auxHistory.auxHistory && auxFunction())

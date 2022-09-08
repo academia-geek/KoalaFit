@@ -33,7 +33,7 @@ const Dashboard = ({dataUser}) => {
       {
         switchDashboard === "1"
           ?
-          <div className=' flex-col justify-around py-8  lg:flex-row items-center lg:mt-0  2xl:px-24 px-10 gap-24 flex '>
+          <div className=' flex-col justify-around py-8  lg:flex-row items-center lg:mt-0  2xl:px-24 px-10 gap-24 flex relative '>
             <DashboardProfile />
             <DashboardMainContent />
           </div>

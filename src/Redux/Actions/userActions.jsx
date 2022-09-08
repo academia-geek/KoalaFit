@@ -9,6 +9,7 @@ import {
     signInWithPopup,
     updateProfile,
     FacebookAuthProvider,
+    getAdditionalUserInfo,
   } from "firebase/auth";
   import {
     facebook,
@@ -76,6 +77,8 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
     };
   };
 
+
+
   export const loginGoogle = () => {
     return (dispatch) => {
       const auth = getAuth();
@@ -91,6 +94,7 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
             const userData = {displayName, email, photoURL, uid}
             createUserInFirestore(uid,userData, dispatch)
             dispatch(loginProvider(displayName, email, photoURL, uid))
+            
           }
         )
         .catch((error) => {
@@ -103,8 +107,18 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
           const credential = GoogleAuthProvider.credentialFromError(error);
           // ...
         });
+        
     };
   };
+
+  export const currentUser = (data) =>{
+    return {
+      type:userTypes.currentUser,
+      payload: {
+        data
+      }
+    }
+  }
 
   export const loginProvider = (displayName, email, photoURL, uid) => {
     return {

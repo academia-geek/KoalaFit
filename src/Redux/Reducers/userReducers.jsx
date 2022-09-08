@@ -38,12 +38,16 @@ import {
           photoURL: action.payload.photoURL,
           age: action.payload.age,
           city: action.payload.city,
+          uid: action.payload.uid
         }
       case userTypes.addHistoryOfCalories:
         return {
           ...state,
           totalCal: action.payload
         }
+
+      case userTypes.currentUser:
+        return action.payload  
 
       default:
         return state;

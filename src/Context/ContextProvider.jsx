@@ -9,6 +9,7 @@ const ContextProvider = ({children}) => {
     const [id, setId] = useState(null)
     const [blockProgress, setBlockProgress] = useState(false)
     const [calCounter, setCalCounter] = useState(0)
+    const [aux, setAux] = useState(false)
 
     const handleModal = () => {
         setShowModal(!showModal);
@@ -34,7 +35,9 @@ const ContextProvider = ({children}) => {
         calCounter,
         setCalCounter,
         setBlockProgress,
-        blockProgress
+        blockProgress,
+        aux, 
+        setAux
     }
 
 

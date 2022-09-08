@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { RiMenuFoldFill } from "react-icons/ri";
 import { CgAddR } from "react-icons/cg";
 import { FiEdit } from "react-icons/fi";
@@ -36,6 +36,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { db } from "../Firebase/firebaseConfig";
 import { getAuth } from "firebase/auth";
+import { Context } from "../Context/ContextProvider";
 
 const MySwal = withReactContent(Swal);
 
@@ -53,7 +54,7 @@ const DashboardProfileMenu = () => {
     const modalEditUser = useDisclosure();
     const btnAddWHG = useRef(null);
     const btnEditUser = useRef(null);
-
+    const {aux,setAux} = useContext(Context)
     const login = useSelector((state) => state.login);
     const dispatch = useDispatch();
 
@@ -135,6 +136,7 @@ const DashboardProfileMenu = () => {
           initialValues={{ weight: "", height: "", goal: "" }}
           onSubmit={(values) => {
             updateUserDataInFirestore(login.uid, values);
+            setAux(!aux)
             dispatch(addWHG(values));
             modalAddWHG.onClose();
             updatedAlert();
@@ -201,7 +203,7 @@ const DashboardProfileMenu = () => {
                   >
                     Close
                   </Button>
-                  <Button colorScheme="green" type="submit">
+                  <Button colorScheme="green" type="submit" >
                     Done
                   </Button>
                 </ModalFooter>
@@ -220,13 +222,14 @@ const DashboardProfileMenu = () => {
       >
         <ModalOverlay />
         <Formik
-          initialValues={{ displayName: "", age: "", city: ""}}
+          initialValues={{ displayName: "", age: "", city: "", uid: login.uid}}
           onSubmit={(values) => {
             values.photoURL = userImg;
             updateUserDataInFirestore(login.uid, values);
+            setAux(!aux)
             dispatch(addEditInfoUser(values));
             modalEditUser.onClose();
-            updatedAlert();
+            updatedAlert(); 
           }}
         >
           {({ values, handleChange, handleSubmit }) => (
@@ -303,7 +306,7 @@ const DashboardProfileMenu = () => {
                   >
                     Close
                   </Button>
-                  <Button colorScheme="green" type="submit">
+                  <Button colorScheme="green" type="submit" >
                     Done
                   </Button>
                 </ModalFooter>

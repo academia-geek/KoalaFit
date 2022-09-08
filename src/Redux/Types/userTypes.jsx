@@ -6,4 +6,5 @@ export const userTypes = {
     addWater: "[USER] addWater",
     addEditInfoUser: "[USER] addEditInfoUser",
     addHistoryOfCalories: "[USER] addHistoryOfCalories",
+    currentUser: "currentUser"
   };

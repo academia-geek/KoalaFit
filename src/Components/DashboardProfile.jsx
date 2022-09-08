@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import { FiEdit } from "react-icons/fi";
 import "react-circular-progressbar/dist/styles.css";
@@ -20,15 +20,18 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
-import { addCalories, addWater, addWHG } from "../Redux/Actions/userActions";
+import { addCalories, addWater, addWHG, currentUser } from "../Redux/Actions/userActions";
 import { updatedAlert } from "../helpers/alerts";
 import { calculateCal } from "../helpers/calculateCal";
 import { calculateWater } from "../helpers/calculateWater";
 import DashboardProfileMenu from "./DashboardProfileMenu";
 import { Context } from "../Context/ContextProvider";
+import { db } from "../Firebase/firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 
 
 const color = '#0FC185'
@@ -47,45 +50,58 @@ const initialDataUser = {
 
 const DashboardProfile = () => {
   const login = useSelector(state => state.login)
+  const dataUserLogin = JSON.parse(localStorage.getItem('dataUserLogin'))
   const modalAddCal = useDisclosure();
   const modalAddWater = useDisclosure();
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
   const [waterCounter, setWaterCounter] = useState(0)
-  const {setCalCounter, calCounter} = useContext(Context)
-
+  const {setCalCounter, calCounter, aux, setAux} = useContext(Context)
   const dispatch = useDispatch()
+  const [userLogin, setUserLogin] = useState()
+ 
+
+  const funcionRara = async(state) =>{
+    const userRef = doc(db, "users", login.uid)
+    const currentUser = await getDoc(userRef)
+    state(currentUser.data())
+  }
+  useEffect(()=>{
+    funcionRara(setUserLogin)
+  },[aux])
 
   return (
-    <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
+    <>
+    {userLogin ?
+      <div className="flex flex-col items-center pt-8 justify-around gap-8 ">
       <div className="bg-white relative shadow-md max-w-xs w-full flex flex-col items-center rounded-3xl px-8 pb-8 ">
         <div className="h-8 shadow-none right-4 top-4 absolute cursor-pointer">
           <DashboardProfileMenu/>
         </div>
         <div className="h-24 w-24 flex justify-center -mt-10">
           <img
-            src={login.photoURL ?  login.photoURL : initialDataUser.photo }
+            src={userLogin.photoURL ?  userLogin.photoURL : initialDataUser.photo }
             alt="Profile img"
             className="h-full rounded-full object-cover"
           />
         </div>
         <div className="flex flex-col mt-4 text-center gap-2 border-b-2 w-[70%] pb-3">
-          <p className="font-bold">{login ? login.displayName : initialDataUser.name }</p>
-          <p className="text-textColor">{login.age ? login.age : initialDataUser.age} years, {login.city ? login.city : initialDataUser.city}</p>
+          <p className="font-bold">{userLogin ? userLogin.displayName : initialDataUser.name }</p>
+          <p className="text-textColor">{userLogin.age ? userLogin.age : initialDataUser.age} years, {userLogin.city ? userLogin.city : initialDataUser.city}</p>
         </div>
 
         <div className="flex justify-around items-center pt-4 w-full">
           <div className="flex flex-col">
             <p className="text-primary text-sm">Weight</p>
-            <p className="text-lg font-semibold">{login.whg ? login.whg.weight : initialDataUser.weight } kg</p>
+            <p className="text-lg font-semibold">{userLogin.weight ? userLogin.weight : initialDataUser.weight } kg</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Height</p>
-            <p className="text-lg font-semibold">{login.whg ? login.whg.height : initialDataUser.height } m</p>
+            <p className="text-lg font-semibold">{userLogin.height ? userLogin.height : initialDataUser.height } m</p>
           </div>
           <div className="flex flex-col">
             <p className="text-primary text-sm">Goal</p>
-            <p className="text-orange-400 font-semibold">{login.whg ? login.whg.goal : initialDataUser.goal } kg</p>
+            <p className="text-orange-400 font-semibold">{userLogin.goal ? userLogin.goal : initialDataUser.goal } kg</p>
           </div>
         </div>
       </div>
@@ -102,12 +118,12 @@ const DashboardProfile = () => {
           <div>
             <div className="mt-6">
               <p className="text-textColor">Goal</p>
-              <p>{login.calories ? login.calories.calories : initialDataUser.calorieGoal } kcal</p>
+              <p>{userLogin.calories ? userLogin.calories.calories : initialDataUser.calorieGoal } kcal</p>
             </div>
 
             <div className="mt-6">
               <p className="text-textColor">Burned</p>
-              <p>{login.totalCal ?  login.totalCal : initialDataUser.calorieBurned} kcal</p>
+              <p>{userLogin.totalCal ?  userLogin.totalCal : initialDataUser.calorieBurned} kcal</p>
             </div>
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">
@@ -170,6 +186,7 @@ const DashboardProfile = () => {
           initialValues={{calories: ''}}
           onSubmit={(values => {
             updateUserDataInFirestore(login.uid, values)
+            setAux(!aux)
             dispatch(addCalories(values))
             modalAddCal.onClose()
             calculateCal(setCalCounter, login.totalCal, values.calories)
@@ -221,10 +238,12 @@ const DashboardProfile = () => {
           initialValues={{water: ''}}
           onSubmit={(values => {
             updateUserDataInFirestore(login.uid, values)
+            setAux(!aux)
             dispatch(addWater(values))
             calculateWater(setWaterCounter, 2000, values.water)
             modalAddWater.onClose()
             updatedAlert()
+            
 
             console.log(values);
           })}>
@@ -262,7 +281,12 @@ const DashboardProfile = () => {
       </Modal>
 
 
-    </div>
+    </div>:
+      <div className="m-auto z-10">
+        <CircularProgress isIndeterminate color='green.300'  size={100}/>
+      </div>
+    }
+    </>
   );
 };
 
