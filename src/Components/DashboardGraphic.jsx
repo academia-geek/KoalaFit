@@ -32,16 +32,16 @@ ChartJS.register(
       },
     },
   };
-
+  
   // Tiempo en semana debe ser un arreglo
-  const labels = ['00', '01', '02', '03', '04', '05',];
+  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
   export const data = {
     labels,
     datasets: [
       {
         fill: true,
-        label: 'Weight',
+        label: 'Challenges',
         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
         borderColor: 'rgb(15,193,133)',
         backgroundColor: 'rgba(205, 249, 232,0.5)',

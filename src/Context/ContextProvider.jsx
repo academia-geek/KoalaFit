@@ -10,7 +10,8 @@ const ContextProvider = ({children}) => {
     const [blockProgress, setBlockProgress] = useState(false)
     const [calCounter, setCalCounter] = useState(0)
     const [aux, setAux] = useState(false)
-
+    const [caloriesBurned, setCaloriesBurned] = useState()
+    
     const handleModal = () => {
         setShowModal(!showModal);
     };
@@ -37,7 +38,9 @@ const ContextProvider = ({children}) => {
         setBlockProgress,
         blockProgress,
         aux, 
-        setAux
+        setAux,
+        caloriesBurned, 
+        setCaloriesBurned
     }
 
 

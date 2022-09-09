@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GiTrophy } from 'react-icons/gi';
 import {
     Table,
@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { db } from '../Firebase/firebaseConfig';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { Context } from '../Context/ContextProvider';
 
 
 const DashboardRanking = () => {
@@ -21,6 +22,7 @@ const DashboardRanking = () => {
     const [ranking, setRanking] = useState()
     const [rank, setRank] = useState()
     const [challengesCompleted, setChallengesCompleted] = useState()
+
     const datosRanking = async (state) => {
 
         const historyRef = await getDocs(collection(db, "History"))
@@ -34,13 +36,17 @@ const DashboardRanking = () => {
 
         historyRef.forEach((doc1) => {
             let aux = doc1.data().auxHistory
-
+            contadorRetos = 0
+            contadorCalorias = 0
+            contadorTiempo = 0
             aux.forEach((doc2, i = 0) => {
+                
                 contadorRetos = i + 1
                 contadorCalorias += Number(doc2.totalCalories)
                 contadorTiempo += Number(doc2.totalTime)
                 id = doc1.id
                 name = doc2.nameUser
+                
             })
             const datos = {
                 contadorRetos,
@@ -50,6 +56,7 @@ const DashboardRanking = () => {
                 name
             }
             arrayRanking.push(datos)
+            
         })
 
 

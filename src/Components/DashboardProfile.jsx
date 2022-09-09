@@ -21,6 +21,8 @@ import {
   InputGroup,
   InputLeftElement,
   CircularProgress,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserDataInFirestore } from "../helpers/updateUserDataInFirestore";
@@ -32,7 +34,7 @@ import DashboardProfileMenu from "./DashboardProfileMenu";
 import { Context } from "../Context/ContextProvider";
 import { db } from "../Firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-
+import { caloriesBurned } from "../helpers/totalCaloriesBurned";
 
 const color = '#0FC185'
 const initialDataUser = {
@@ -59,17 +61,26 @@ const DashboardProfile = () => {
   const {setCalCounter, calCounter, aux, setAux} = useContext(Context)
   const dispatch = useDispatch()
   const [userLogin, setUserLogin] = useState()
- 
+  const [dbTotalCalories,setDbTotalCalories] = useState()
+  const [caloriesB, setCaloriesB] = useState()
+  // const [porcentaje, setPorcentaje] = useState()
+  let porcentaje
 
-  const funcionRara = async(state) =>{
+  const funcionRara = async(state,state2) =>{
     const userRef = doc(db, "users", login.uid)
     const currentUser = await getDoc(userRef)
     state(currentUser.data())
+    state2(currentUser.data().totalCalories && currentUser.data().totalCalories)
+    
   }
   useEffect(()=>{
-    funcionRara(setUserLogin)
+    caloriesBurned(setCaloriesB, login.uid)
+    funcionRara(setUserLogin,setDbTotalCalories )
+    
   },[aux])
 
+  porcentaje = (Number(caloriesB*100)/Number(dbTotalCalories))
+ 
   return (
     <>
     {userLogin ?
@@ -118,19 +129,20 @@ const DashboardProfile = () => {
           <div>
             <div className="mt-6">
               <p className="text-textColor">Goal</p>
-              <p>{userLogin.calories ? userLogin.calories.calories : initialDataUser.calorieGoal } kcal</p>
+              <p>{dbTotalCalories ? dbTotalCalories : initialDataUser.calorieGoal } kcal</p>
             </div>
 
             <div className="mt-6">
               <p className="text-textColor">Burned</p>
-              <p>{userLogin.totalCal ?  userLogin.totalCal : initialDataUser.calorieBurned} kcal</p>
+              <p>{caloriesB ?  caloriesB : initialDataUser.calorieBurned} kcal</p>
             </div>
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">
             <CircularProgressbar
-              value={calCounter}
-              text={`${calCounter} %`}
-
+              value={caloriesB}
+              text={porcentaje ?`${porcentaje} %`: `0%`}
+              min={0}
+              maxValue={dbTotalCalories}
               styles={buildStyles({
                 trailColor: "#d6d6d6",
                 pathColor: "#0FC185",
@@ -183,13 +195,12 @@ const DashboardProfile = () => {
         >
           <ModalOverlay />
           <Formik
-          initialValues={{calories: ''}}
+          initialValues={{totalCalories: ''}}
           onSubmit={(values => {
             updateUserDataInFirestore(login.uid, values)
             setAux(!aux)
             dispatch(addCalories(values))
             modalAddCal.onClose()
-            calculateCal(setCalCounter, login.totalCal, values.calories)
             updatedAlert()
             console.log(values);
           })}>
@@ -210,7 +221,7 @@ const DashboardProfile = () => {
                       pointerEvents="none"
                       children={<BsFillLightningChargeFill color={color} />}
                       />
-                    <Input type="number" name="calories" value={values.calories} onChange={handleChange} placeholder="Calorie goal" />
+                    <Input type="number" name="totalCalories" value={values.totalCalories} onChange={handleChange} placeholder="Calorie goal" />
                   </InputGroup>
                 </Stack>
             </ModalBody>

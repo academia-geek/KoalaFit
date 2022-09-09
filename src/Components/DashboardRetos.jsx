@@ -43,6 +43,7 @@ import { calculateCal } from "../helpers/calculateCal";
 import EditModal from "./EditModal";
 
 
+
 const DashboardRetos = () => {
     
 const {blockProgress} = useContext(Context)
@@ -55,7 +56,6 @@ const {blockProgress} = useContext(Context)
     const [dataAux, setDataAux] = useState([])
     const [data, setData] = useState();
     const [counter, setCounter] = useState()
-    const {setCalCounter, calCounter} = useContext(Context)
     const modalTimer = useDisclosure();
     const modalEdit = useDisclosure();
     const modalBtn = useRef(null);
@@ -66,12 +66,13 @@ const {blockProgress} = useContext(Context)
         totalTime: "",
     });
 
+   
+
     useEffect(() => {
 
         const calldata = async () => {
             const prueba = doc(db, "challenge", idUser)
             const prueba2 = await getDoc(prueba)
-
             setData(prueba2.data() && prueba2.data().challenges)
             if (!data) {
                 retosDefecto()
@@ -79,7 +80,6 @@ const {blockProgress} = useContext(Context)
         };
 
         calldata();
-
 
     }, [aux]);
 
@@ -116,9 +116,7 @@ const {blockProgress} = useContext(Context)
         const dt = new Date()
         const dataNameRef = doc(db,"users", idUser)
         const dataName = await getDoc(dataNameRef)
-        const date = (`${dt.getDay()}/${dt.getMonth()}/${dt.getFullYear()}`)
-
-
+        const date = (`${dt.getDate()}/${dt.getMonth()+1}/${dt.getFullYear()}`)
         const DataUsertoHistorial = {
             name,
             totalCalories,
@@ -132,6 +130,7 @@ const {blockProgress} = useContext(Context)
         setDataAux(DataUsertoHistorial);
         
     };
+    
 
     const handleDelete = ({ target }) => {
         const index = data.filter(e => e.uid !== target.id)
