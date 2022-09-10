@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -11,9 +11,17 @@ import {
     Legend,
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import {faker} from '@faker-js/faker';
+import { retosPorFecha } from '../helpers/retosPorFecha';
 
-ChartJS.register(
+
+
+const DashboardGraphic = () => {
+  const idUser = localStorage.getItem("idUserLogin")
+  const [historial, setHistorial] = useState()
+
+  retosPorFecha(setHistorial, idUser)
+  
+  ChartJS.register(
     CategoryScale,
     LinearScale,
     PointElement,
@@ -24,7 +32,7 @@ ChartJS.register(
     Legend
   );
 
-  export const options = {
+   const options = {
     responsive: true,
     plugins: {
       legend: {
@@ -34,22 +42,23 @@ ChartJS.register(
   };
   
   // Tiempo en semana debe ser un arreglo
-  const labels = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  export const data = {
+   const data = {
     labels,
     datasets: [
       {
-        fill: true,
+        fill: true, 
         label: 'Challenges',
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+        data: historial ? historial : '' ,
         borderColor: 'rgb(15,193,133)',
         backgroundColor: 'rgba(205, 249, 232,0.5)',
       },
     ],
   };
 
-const DashboardGraphic = () => {
+  
+
   return (
     <div className=' w-full max-w-7xl mx-auto flex justify-center items-center mb-4'>
         <div className='w-11/12 mt-4'>

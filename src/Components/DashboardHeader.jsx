@@ -19,10 +19,7 @@ const DashboardHeader = () => {
             <h1 className='text-primary  font-semibold '>Run</h1>
             <p className='text-primary  text-base flex  items-center justify-center gap-2 w-full'><AiOutlineClockCircle color='#3ecf9e' />30 min</p>
         </div>
-        <div>
-            <h1 className='text-primary font-semibold '>Aerobic</h1>
-            <p className='text-primary  text-base flex  items-center justify-center gap-2 w-full'><AiOutlineClockCircle color='#3ecf9e'  />15 min</p>
-        </div>
+        
         <div className='hidden sm:block'>
             <p className='text-primary text-base '>30 jan 2020</p>
         </div>

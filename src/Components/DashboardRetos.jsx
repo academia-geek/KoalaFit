@@ -125,7 +125,6 @@ const {blockProgress} = useContext(Context)
             uid:crypto.randomUUID(),
             nameUser: dataName.data().displayName
         };
-        console.log(DataUsertoHistorial)
         setCounter(totalTime);
         setDataAux(DataUsertoHistorial);
         
