@@ -16,7 +16,9 @@ export const retosPorFecha = async(state, id) =>{
     let data2 = []
     let aux = 0
     historyRef.data().auxHistory.forEach(doc => {
-        data.push((getLongMonthName(new Date(doc.date))))
+        let cosa = doc.date
+        let cosa2 = cosa.split("/")
+        data.push((getLongMonthName(new Date(cosa2[1]))))
     });
    
     
@@ -25,6 +27,7 @@ export const retosPorFecha = async(state, id) =>{
         data.forEach(mes =>{
             if(e == mes ){
                 aux++
+               
             }
         })
         data2.push(aux)

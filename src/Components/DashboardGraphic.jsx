@@ -18,8 +18,10 @@ import { retosPorFecha } from '../helpers/retosPorFecha';
 const DashboardGraphic = () => {
   const idUser = localStorage.getItem("idUserLogin")
   const [historial, setHistorial] = useState()
-
-  retosPorFecha(setHistorial, idUser)
+  useEffect(()=>{
+    retosPorFecha(setHistorial, idUser)
+  },[])
+  
   
   ChartJS.register(
     CategoryScale,
