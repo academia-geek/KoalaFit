@@ -76,7 +76,7 @@ const {blockProgress} = useContext(Context)
             const prueba = doc(db, "challenge", idUser)
             const prueba2 = await getDoc(prueba)
             setData(prueba2.data() && prueba2.data().challenges)
-            if (!data) {
+            if (!prueba2.data()) {
                 retosDefecto()
             }
         };
@@ -88,6 +88,8 @@ const {blockProgress} = useContext(Context)
     const retosDefecto = async () => {
         const uid = idUser
         await setDoc(doc(db, 'challenge', uid), retosObject)
+        console.log("sarna")
+        setAux(!aux)
     }
 
    
@@ -212,6 +214,7 @@ const {blockProgress} = useContext(Context)
 
   return (
     <>
+    
       <div className="flex flex-col lg:flex-row justify-around gap-5">
         <div className=" relative shadow-md sm:rounded-lg h-64 overflow-y-auto w-[28%]">
           <div className="flex justify-center text-white">

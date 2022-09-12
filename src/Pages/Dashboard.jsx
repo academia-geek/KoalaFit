@@ -29,7 +29,9 @@ const Dashboard = ({ dataUser }) => {
     }
     const ref = doc(db, 'History', idUser)
     const perro = await getDoc(ref)
-    
+
+  
+
     if (!perro.data()) {
       await setDoc(doc(db, 'History', idUser), raro)
     }
