@@ -42,77 +42,67 @@ import { Context } from "../Context/ContextProvider";
 import { calculateCal } from "../helpers/calculateCal";
 import EditModal from "./EditModal";
 
-
-
 const DashboardRetos = () => {
-    
-const {blockProgress} = useContext(Context)
-    const login = useSelector(state => state.login)
-    const dispatch = useDispatch()
-    const retosObject = { challenges }
-    const idUser = localStorage.getItem("idUserLogin")
-    const [aux, setAux] = useState(false)
-    const [switche, setSwitche] = useState(false)
-    const [dataAux, setDataAux] = useState([])
-    const [data, setData] = useState();
-    const [counter, setCounter] = useState()
-    const modalTimer = useDisclosure();
-    const modalEdit = useDisclosure();
-    const modalBtn = useRef(null);
-    const [dataSlimC, setDataSlimC] = useState([]);
-    const [switchBtns, setSwitchBtns] = useState([]);
+  const { blockProgress } = useContext(Context);
+  const login = useSelector((state) => state.login);
+  const dispatch = useDispatch();
+  const retosObject = { challenges };
+  const idUser = localStorage.getItem("idUserLogin");
+  const [aux, setAux] = useState(false);
+  const [switche, setSwitche] = useState(false);
+  const [dataAux, setDataAux] = useState([]);
+  const [data, setData] = useState();
+  const [counter, setCounter] = useState();
+  const modalTimer = useDisclosure();
+  const modalEdit = useDisclosure();
+  const modalBtn = useRef(null);
+  const [dataSlimC, setDataSlimC] = useState([]);
+  const [switchBtns, setSwitchBtns] = useState([]);
 
-    const { formValue, handleInputChangeName, reset } = useForm({
-        name: "",
-        totalCalories: "",
-        totalTime: "",
-    });
+  const { formValue, handleInputChangeName, reset } = useForm({
+    name: "",
+    totalCalories: "",
+    totalTime: "",
+  });
 
-   
-
-    useEffect(() => {
-
-        const calldata = async () => {
-            const prueba = doc(db, "challenge", idUser)
-            const prueba2 = await getDoc(prueba)
-            setData(prueba2.data() && prueba2.data().challenges)
-            if (!prueba2.data()) {
-                retosDefecto()
-            }
-        };
-
-        calldata();
-
-    }, [aux]);
-
-    const retosDefecto = async () => {
-        const uid = idUser
-        await setDoc(doc(db, 'challenge', uid), retosObject)
-        console.log("sarna")
-        setAux(!aux)
-    }
-
-   //me gusta la poia
-
-    const click = async (name, totalCalories, totalTime, uid) => {
-        const dt = new Date()
-        const dataNameRef = doc(db,"users", idUser)
-        const dataName = await getDoc(dataNameRef)
-        const date = (`${dt.getDate()}/${dt.getMonth()+1}/${dt.getFullYear()}`)
-        const DataUsertoHistorial = {
-            name,
-            totalCalories,
-            totalTime,
-            date:date,
-            uid:crypto.randomUUID(),
-            nameUser: dataName.data().displayName
-        };
-        setCounter(totalTime);
-        setDataAux(DataUsertoHistorial);
-        
+  useEffect(() => {
+    const calldata = async () => {
+      const prueba = doc(db, "challenge", idUser);
+      const prueba2 = await getDoc(prueba);
+      setData(prueba2.data() && prueba2.data().challenges);
+      if (!prueba2.data()) {
+        retosDefecto();
+      }
     };
-    
 
+    calldata();
+  }, [aux]);
+
+  const retosDefecto = async () => {
+    const uid = idUser;
+    await setDoc(doc(db, "challenge", uid), retosObject);
+    console.log("sarna");
+    setAux(!aux);
+  };
+
+  //me gusta la poia
+
+  const click = async (name, totalCalories, totalTime, uid) => {
+    const dt = new Date();
+    const dataNameRef = doc(db, "users", idUser);
+    const dataName = await getDoc(dataNameRef);
+    const date = `${dt.getDate()}/${dt.getMonth() + 1}/${dt.getFullYear()}`;
+    const DataUsertoHistorial = {
+      name,
+      totalCalories,
+      totalTime,
+      date: date,
+      uid: crypto.randomUUID(),
+      nameUser: dataName.data().displayName,
+    };
+    setCounter(totalTime);
+    setDataAux(DataUsertoHistorial);
+  };
 
   const handleDelete = ({ target }) => {
     const index = data.filter((e) => e.uid !== target.id);
@@ -167,7 +157,6 @@ const {blockProgress} = useContext(Context)
 
       dispatch(addHistoryOfCalories(totalCal));
       console.log(login.calories);
-      
     };
 
     auxHistory.auxHistory && auxFunction();
@@ -209,15 +198,14 @@ const {blockProgress} = useContext(Context)
     await updateDoc(RefChallenge, {
       challenges: arrayUnion(DatosChallenge),
     });
-    setAux(!aux)
+    setAux(!aux);
   };
 
   return (
     <>
-    
       <div className="flex flex-col lg:flex-row justify-around gap-5">
-        <div className=" relative shadow-md sm:rounded-lg h-64 overflow-y-auto w-[28%]">
-          <div className="flex justify-center text-white">
+        <div className="w-11/12 mx-auto lg:w-[400px] h-full">
+          <div className="flex justify-center text-white mb-5">
             <Button onClick={handleSlimDown} background={"#1EAB7B"}>
               Slim down
             </Button>
@@ -225,54 +213,57 @@ const {blockProgress} = useContext(Context)
               Get strong
             </Button>
           </div>
-
-          <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400 max-w-xs max-h-sm ">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-              <tr>
-                <th scope="col" className="py-3">
-                  Challene Name
-                </th>
-                <th scope="col" className="py-3">
-                  Time
-                </th>
-                <th scope="col" className="py-3">
-                  Calories
-                </th>
-                <th scope="col" className="py-3">
-                  <span className="sr-only">add</span>
-                </th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {dataSlimC.map(({ name, totalTime, totalCalories, uid }, idx) => (
-                <tr
-                  key={idx}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                >
-                  <th
-                    scope="row"
-                    className="py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {name}
+          <div className="bg-white p-4 rounded-3xl relative shadow-md sm:rounded-lg h-[200px] lg:h-[400px] overflow-y-auto ">
+            <table className="w-full text-sm text-left  text-gray-500 dark:text-gray-400  h-full ">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                <tr>
+                  <th scope="col" className="py-3">
+                    Challene Name
                   </th>
-                  <td className="py-4 px-2">{totalTime}</td>
-                  <td className="py-4 px-2">{totalCalories}</td>
-                  <td className="py-4 px-2 text-right">
-                    <Button
-                    background={"#D49A72"}
-                    color={"white"}
-                      id={uid}
-                      onClick={() =>
-                        handleOnClick(name, totalTime, totalCalories, uid)
-                      }
-                    >
-                      Add
-                    </Button>
-                  </td>
+                  <th scope="col" className="py-3">
+                    Time
+                  </th>
+                  <th scope="col" className="py-3">
+                    Calories
+                  </th>
+                  <th scope="col" className="py-3">
+                    <span className="sr-only">add</span>
+                  </th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {dataSlimC.map(
+                  ({ name, totalTime, totalCalories, uid }, idx) => (
+                    <tr
+                      key={idx}
+                      className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                    >
+                      <th
+                        scope="row"
+                        className="py-4 px-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {name}
+                      </th>
+                      <td className="py-4 px-2">{totalTime}</td>
+                      <td className="py-4 px-2">{totalCalories}</td>
+                      <td className="py-4 px-2 text-right">
+                        <Button
+                          background={"#D49A72"}
+                          color={"white"}
+                          id={uid}
+                          onClick={() =>
+                            handleOnClick(name, totalTime, totalCalories, uid)
+                          }
+                        >
+                          Add
+                        </Button>
+                      </td>
+                    </tr>
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <div className="bg-white shadow-md rounded-2xl lg:h-[600px] lg:w-[1000px] w-full overflow-y-scroll pt-4 mb-8 m-auto divTable">

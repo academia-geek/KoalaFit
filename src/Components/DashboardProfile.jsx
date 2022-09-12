@@ -144,7 +144,7 @@ const DashboardProfile = () => {
           </div>
           <div className="h-36 w-36 text-center font-semibold text-primary mb-4">
             <CircularProgressbar
-              value={caloriesB ? caloriesB: 0}
+              value={caloriesB && dbTotalCalories ? caloriesB: 0}
               text={porcentaje ?`${porcentaje.toFixed(1)} %`: `0%`}
               min={0}
               maxValue={dbTotalCalories ? dbTotalCalories : 100 }
