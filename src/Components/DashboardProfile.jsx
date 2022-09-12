@@ -58,7 +58,7 @@ const DashboardProfile = () => {
   const btnAddCal = useRef(null);
   const btnAddWater = useRef(null);
   const [waterCounter, setWaterCounter] = useState(0)
-  const {setCalCounter, calCounter, aux, setAux} = useContext(Context)
+  const {aux, setAux} = useContext(Context)
   const dispatch = useDispatch()
   const [userLogin, setUserLogin] = useState()
   const [dbTotalCalories,setDbTotalCalories] = useState()

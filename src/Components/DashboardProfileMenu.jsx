@@ -135,8 +135,8 @@ const DashboardProfileMenu = () => {
         <Formik
           initialValues={{ weight: "", height: "", goal: "" }}
           onSubmit={(values) => {
-            updateUserDataInFirestore(login.uid, values);
             setAux(!aux)
+            updateUserDataInFirestore(login.uid, values);   
             dispatch(addWHG(values));
             modalAddWHG.onClose();
             updatedAlert();
