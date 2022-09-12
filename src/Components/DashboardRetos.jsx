@@ -92,7 +92,7 @@ const {blockProgress} = useContext(Context)
         setAux(!aux)
     }
 
-   
+   //me gusta la poia
 
     const click = async (name, totalCalories, totalTime, uid) => {
         const dt = new Date()
