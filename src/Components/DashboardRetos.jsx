@@ -205,7 +205,7 @@ const DashboardRetos = () => {
     <>
       <div className="flex flex-col lg:flex-row justify-around gap-5">
         <div className="w-11/12 mx-auto lg:w-[400px] h-full">
-          <div className="flex justify-center text-white mb-5">
+          <div className="flex justify-center text-white mb-5 gap-4">
             <Button onClick={handleSlimDown} background={"#1EAB7B"}>
               Slim down
             </Button>
