@@ -19,7 +19,12 @@ const ModalSesionRegister = () => {
     const { formValue, handleInputChangeName, reset } = useForm({
       email: "",
       password: "",
-      name: ""
+      name: "",
+      goal:"",
+      height:"",
+      totalCalories: "",
+      water: "",
+      weight:"",
     });
 
     const {showModal, handleModal, showModal2,handleModal2} = useContext(Context)
@@ -35,7 +40,13 @@ const ModalSesionRegister = () => {
           registerWithEmail(
             formValue.email,
             formValue.password,
-            formValue.name
+            formValue.name,
+            formValue.goal,
+            formValue.height,
+            formValue.totalCalories,
+            formValue.water,
+            formValue.weight
+
           )
         );
         reset();

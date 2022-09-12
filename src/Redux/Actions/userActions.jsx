@@ -22,14 +22,20 @@ import { createUserInFirestore } from "../../helpers/createUserInFirestore";
     payload: user,
   });
 
-  export const registerWithEmail = (email, password, displayName) => {
+  export const registerWithEmail = (email, password, displayName,goal,height,totalCalories,water,weight) => {
     return (dispatch) => {
       const auth = getAuth();
-      createUserWithEmailAndPassword(auth, email, password, displayName)
-        .then( async () => {
-          await updateProfile(auth.currentUser, {
+      createUserWithEmailAndPassword(auth, email, password, displayName,goal,height,totalCalories,water,weight)
+        .then(async({user:{
+            email,
+            uid
+        }}) => {
+          const aux = await updateProfile(auth.currentUser, {
             displayName
           });
+          const userData = {displayName, email, uid,goal,height,totalCalories,water,weight }
+          console.log(userData);
+          createUserInFirestore(uid,userData, dispatch)
           dispatch(
             registerSync({
               email,

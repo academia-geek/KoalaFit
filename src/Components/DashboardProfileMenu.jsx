@@ -57,6 +57,7 @@ const DashboardProfileMenu = () => {
     const {aux,setAux} = useContext(Context)
     const login = useSelector((state) => state.login);
     const dispatch = useDispatch();
+    const idUser = localStorage.getItem("idUserLogin")
 
     const deleteAccount = () => {
       MySwal.fire({
@@ -68,7 +69,7 @@ const DashboardProfileMenu = () => {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          deleteDoc(doc(db, "users", uid));
+          deleteDoc(doc(db, "users", idUser));
           MySwal.fire("Account deleted!", "", "success");
           auth.signOut();
         }
@@ -136,7 +137,7 @@ const DashboardProfileMenu = () => {
           initialValues={{ weight: "", height: "", goal: "" }}
           onSubmit={(values) => {
             setAux(!aux)
-            updateUserDataInFirestore(login.uid, values);   
+            updateUserDataInFirestore(idUser, values);   
             dispatch(addWHG(values));
             modalAddWHG.onClose();
             updatedAlert();
@@ -222,10 +223,10 @@ const DashboardProfileMenu = () => {
       >
         <ModalOverlay />
         <Formik
-          initialValues={{ displayName: "", age: "", city: "", uid: login.uid}}
+          initialValues={{ displayName: "", age: "", city: "", uid: idUser}}
           onSubmit={(values) => {
             values.photoURL = userImg;
-            updateUserDataInFirestore(login.uid, values);
+            updateUserDataInFirestore(idUser, values);
             setAux(!aux)
             dispatch(addEditInfoUser(values));
             modalEditUser.onClose();

@@ -33,7 +33,7 @@ import { calculateWater } from "../helpers/calculateWater";
 import DashboardProfileMenu from "./DashboardProfileMenu";
 import { Context } from "../Context/ContextProvider";
 import { db } from "../Firebase/firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { caloriesBurned } from "../helpers/totalCaloriesBurned";
 
 const color = '#0FC185'
@@ -63,19 +63,24 @@ const DashboardProfile = () => {
   const [userLogin, setUserLogin] = useState()
   const [dbTotalCalories,setDbTotalCalories] = useState()
   const [caloriesB, setCaloriesB] = useState()
+  const idUser = localStorage.getItem("idUserLogin")
   // const [porcentaje, setPorcentaje] = useState()
   let porcentaje
 
+  
+
+
   const funcionRara = async(state,state2) =>{
-    const userRef = doc(db, "users", login.uid)
+    const userRef = doc(db, "users", idUser)
     const currentUser = await getDoc(userRef)
     state(currentUser.data())
     state2(currentUser.data().totalCalories && currentUser.data().totalCalories)
     
   }
   useEffect(()=>{
-    caloriesBurned(setCaloriesB, login.uid)
-    funcionRara(setUserLogin,setDbTotalCalories )
+    caloriesBurned(setCaloriesB, idUser)
+    funcionRara(setUserLogin,setDbTotalCalories)
+   
     
   },[aux])
 
