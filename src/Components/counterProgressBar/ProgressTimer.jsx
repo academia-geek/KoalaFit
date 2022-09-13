@@ -42,7 +42,7 @@ const ProgressTimer = ({countdownTimestampMs}) => {
 
   return (
     <div>
-      <CircularProgressbar
+      <CircularProgressbar 
                 value={segs}
                 maxValue={countdownTimestampMs}
                 text={`${mins}:${totalSegs}`}
