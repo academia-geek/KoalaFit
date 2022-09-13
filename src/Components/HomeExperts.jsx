@@ -44,7 +44,10 @@ const HomeExperts = () => {
             <p>React Developer</p>
             </div>
             <div>
+              <a href="https://linktr.ee/ikevinmejia" target={'_blank'}>
             <Button variant="filled" size="sm" className=" bg-gradient-to-r from-sixty to-secondary">View Details</Button>
+
+              </a>
             </div>
           </div>
         </div>
@@ -64,7 +67,10 @@ const HomeExperts = () => {
             <p>React Developer</p>
             </div>
             <div>
+              <a href="https://linktr.ee/felipe852" target={'_blank'}>
             <Button variant="filled" size="sm" className=" bg-gradient-to-r from-sixty to-secondary">View Details</Button>
+
+              </a>
             </div>
           </div>
         </div>
@@ -84,7 +90,10 @@ const HomeExperts = () => {
             <p>React Developer</p>
             </div>
             <div>
+              <a href="https://linktr.ee/nuthelk" target={'_blank'}>
+
             <Button variant="filled" size="sm" className="bg-gradient-to-r from-sixty to-secondary">View Details</Button>
+              </a>
             </div>
           </div>
         </div>
