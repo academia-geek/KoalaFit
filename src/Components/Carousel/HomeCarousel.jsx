@@ -21,6 +21,12 @@ const HomeCarousel = () => {
     {
       url: "https://res.cloudinary.com/dnont3pur/image/upload/v1662159937/DemoDay%20Temporaly%20Imgs/img2_ictgxf.png",
     },
+    {
+      url: "https://res.cloudinary.com/ikevinmejia/image/upload/v1663031896/Group_6_zmh1m6.png",
+    },
+    {
+      url: "https://res.cloudinary.com/ikevinmejia/image/upload/v1663031896/img5_rzpm5z.png",
+    },
   ];
 
   const handleOnClick = () => {
