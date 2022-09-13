@@ -338,7 +338,7 @@ const DashboardRetos = () => {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Edit Profile</ModalHeader>
+          <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={4}>
