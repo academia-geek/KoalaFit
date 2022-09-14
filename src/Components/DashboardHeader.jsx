@@ -32,7 +32,7 @@ const DashboardHeader = () => {
         </div>
         
         <div className='hidden sm:block'>
-            <p className='text-primary  font-semibold '>Fecha</p>
+            <p className='text-primary  font-semibold '>Date</p>
             <p className='text-primary text-base '>{fecha}</p>
         </div>
         </div>

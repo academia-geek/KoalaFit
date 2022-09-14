@@ -307,7 +307,7 @@ const DashboardRetos = () => {
                           }}
                           id={uid}
                         >
-                          Editar
+                          Edit
                         </Button>
                       </Td>
                       <Td>

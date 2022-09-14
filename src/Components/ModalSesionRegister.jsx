@@ -79,7 +79,7 @@ const ModalSesionRegister = () => {
                         Save Account
                     </Button>
                     <Button variant="filled" color='red' className='bg-red-400' fullWidth onClick={handlemodals}>
-                        Cancelar
+                        Cancel
                     </Button>
                 </CardFooter>
             </Card>

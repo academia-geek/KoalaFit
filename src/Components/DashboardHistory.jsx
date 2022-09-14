@@ -38,7 +38,7 @@ const DashboardHistory = () => {
     <>
     <div className="w-full  text-center mt-14 flex flex-col items-center">
       <div className="flex flex-col items-center divTable rounded-lg ring-primary bg-white p-4 gap-2">
-      <h1 className="font-bold text-4xl text-primary">Historial</h1>
+      <h1 className="font-bold text-4xl text-primary">History</h1>
       <BsClockHistory size={30} color={"#0FC185"}/>
       </div>
     </div>

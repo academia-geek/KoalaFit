@@ -41,12 +41,8 @@ const HomeWWA = () => {
         </div>
         <div className="">
           <p className="">
-            Aqui va un texto muy largo... nuthelk es un lame escrotos... cuando
-            sea grande quiere ser grande, no se que mas poner pero bueno... la
-            vaca lola, la vaca lola tiene cabeza y tiene cola y hace muuuuuu y
-            hace muuuuuu.
-            <br /> <br /> Puto el que lo lea completo, asi como el que te
-            enterraron anoche....
+            We are a company that is passionate about healthy living and video games with a future vision of transforming lives through exercise, games, challenges and promoting water consumption.
+            <br /> <br /> Koala Fit was created from the need to have a more active life, helping people in the office and who are fond of video games to lose weight or have a better body.
           </p>
         </div>
       </motion.div>
